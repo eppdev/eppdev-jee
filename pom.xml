@@ -72,6 +72,13 @@
                 <version>${pagehelper-springboot.version}</version>
             </dependency>
 
+            <!-- for junit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+            </dependency>
+
             <!-- for eppdev -->
             <dependency>
                 <groupId>cn.eppdev</groupId>
