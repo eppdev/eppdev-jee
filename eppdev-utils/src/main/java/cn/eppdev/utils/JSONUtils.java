@@ -1,7 +1,7 @@
 /*
  * FileName: JSONUtils.java
  * Author: fan.hao fan.hao@eppdev.cn
- * Date: 17-9-20
+ * Date: 2017-9-20
  */
 
 package cn.eppdev.utils;
@@ -49,8 +49,8 @@ public class JSONUtils {
         try {
             return objectMapper.readValue(jsonStr, cls);
         } catch (IOException e) {
-            logger.error("Error While Transform JsonString to JavaBean: {}", e.getMessage());
-            logger.error("{}", e.getStackTrace());
+            logger.error("Error While Transform JsonString to JavaBean: {}\n {}", e.getMessage(),
+                    e.getStackTrace());
         }
         return null;
     }

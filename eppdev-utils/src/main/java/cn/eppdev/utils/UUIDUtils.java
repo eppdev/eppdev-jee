@@ -1,7 +1,7 @@
 /*
  * FileName: UUIDUtils.java
  * Author: fan.hao fan.hao@eppdev.cn
- * Date: 17-9-20
+ * Date: 2017-9-20
  */
 
 package cn.eppdev.utils;
