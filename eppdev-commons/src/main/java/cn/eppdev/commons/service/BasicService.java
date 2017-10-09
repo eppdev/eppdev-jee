@@ -1,7 +1,7 @@
 /*
  * FileName: BasicService.java
  * Author: fan.hao fan.hao@eppdev.cn
- * Date: 17-9-20
+ * Date: 2017-9-20
  */
 
 package cn.eppdev.commons.service;
@@ -97,4 +97,43 @@ public class BasicService<T extends BasicDao> {
         entityMap.put(PAGE_SIZE_KEY, pageSize);
         return new PageInfo<>(dao.listAll(entityMap));
     }
+
+    /**
+     * 获取分页列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<Map<String, Object>> listBy(Map paramMap){
+        return new PageInfo<>(dao.listBy(paramMap));
+    }
+
+    /**
+     * 获取分页列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<Map<String, Object>> listLike(Map paramMap){
+        return new PageInfo<>(dao.listLike(paramMap));
+    }
+
+
+    /**
+     * 获取分页列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<Map<String, Object>> listLeftLike(Map paramMap){
+        return new PageInfo<>(dao.listLeftLike(paramMap));
+    }
+
+
+    /**
+     * 获取分页列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<Map<String, Object>> listRawLike(Map paramMap){
+        return new PageInfo<>(dao.listRawLike(paramMap));
+    }
+
 }
