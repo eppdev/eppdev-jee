@@ -1,0 +1,16 @@
+/*
+ * FileName: ${ENTITY_NAME}.java
+ * Author: ${author.name} ${author.email}
+ * Date: ${DATE}
+ */
+
+package ${PACKAGE_NAME};
+
+import cn.eppdev.commons.dao.BasicDao;
+
+/**
+ * @author: ${author.name}
+ */
+public interface ${ENTITY_NAME}Dao extends BasicDao {
+
+}

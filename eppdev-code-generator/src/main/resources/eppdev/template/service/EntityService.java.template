@@ -1,0 +1,19 @@
+/*
+ * FileName: ${ENTITY_NAME}Service.java
+ * Author: ${author.name} ${author.mail}
+ * Date: ${DATE}
+ */
+
+package ${PACKAGE_NAME}.service;
+
+import cn.eppdev.commons.service.BasicService;
+import ${PACKAGE_NAME}.dao.${ENTITY_NAME}Dao;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author: ${author.name}
+ */
+@Service
+public class ${ENTITY_NAME}Service extends BasicService<${ENTITY_NAME}Dao> {
+
+}
