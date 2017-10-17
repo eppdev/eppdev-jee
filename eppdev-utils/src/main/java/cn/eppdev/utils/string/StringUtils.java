@@ -1,0 +1,78 @@
+/*
+ * # StringUtils.java
+ * Author: fan.hao fan.hao@eppdev.cn
+ * Date: 2017-10-09
+ */
+package cn.eppdev.utils.string;
+
+/**
+ * 对字符串进行一些格式化的操作
+ * 
+ * @author fan.hao
+ * 
+ */
+public class StringUtils {
+
+	/**
+	 * 将输入的字符串的首字母变成大写
+	 * 
+	 * @param str
+	 *            输入的字符串
+	 * @return 将str的首字母转换成为大写后的结果
+	 */
+	public static String firstUpper(String str) {
+		char ch = str.charAt(0);
+		ch = Character.toUpperCase(ch);
+		return ch + str.substring(1);
+	}
+
+	/**
+	 * 将输入的字符串的首字母变成小写
+	 * 
+	 * @param str
+	 *            输入的字符串
+	 * @return 将str的首字母转换成为小写后的结果
+	 */
+	public static String firstLower(String str) {
+		char ch = str.charAt(0);
+		ch = Character.toLowerCase(ch);
+		return ch + str.substring(1);
+	}
+
+	/**
+	 * 将后面的删除
+	 * @param content
+	 * @param toRemove
+	 * @return
+	 */
+	public static String removeEnd(String content, String toRemove){
+		if(content.endsWith(toRemove)){
+			return content.substring(0, content.length() - toRemove.length());
+		}
+		return content;
+	}
+
+	/**
+	 * 将前面的删除
+	 * @param content
+	 * @param toRemove
+	 * @return
+	 */
+	public static String removeBefore(String content, String toRemove){
+		if(content.startsWith(toRemove)){
+			return content.substring(toRemove.length());
+		}
+		return content;
+	}
+
+	/**
+	 * 将前后的某字符删除
+	 * @param content
+	 * @param toRemove
+	 * @return
+	 */
+	public static String removeBeforeAndEnd(String content, String toRemove){
+		String str = removeBefore(content, toRemove);
+		return removeEnd(str, toRemove);
+	}
+}

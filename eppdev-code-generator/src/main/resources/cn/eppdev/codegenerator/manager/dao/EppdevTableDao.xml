@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.eppdev.codegenerator.manager.dao.EppdevTableDao">
+
+    <sql id="columns">
+        a.id as "id",
+        a.table_name as "tableName",
+        a.module_name as "moduleName",
+        a.table_comment as "tableComment",
+        a.entity_name as "entityName",
+        a.table_type as "tableType",
+        a.version_id as "versionId",
+        a.create_sql as "createSql",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.del_flag as "delFlag"
+    </sql>
+
+    <sql id="customColumns">
+        ,
+        b.version_name as "version.versionName",
+        b.id as "version.id"
+    </sql>
+
+    <sql id="customJoins">
+        left join _eppdev_version b on a.version_id=b.id
+    </sql>
+
+    <insert id="insert" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        insert into _eppdev_table(
+            id,
+            table_name,
+            module_name,
+            table_comment,
+            entity_name,
+            table_type,
+            version_id,
+            create_sql,
+            create_time,
+            update_time,
+            remark,
+            del_flag
+        )
+        values(
+            #{id},
+            #{tableName},
+            #{moduleName},
+            #{tableComment},
+            #{entityName},
+            #{tableType},
+            #{versionId},
+            #{createSql},
+            #{createTime},
+            #{updateTime},
+            #{remark},
+            #{delFlag}
+        )
+    </insert>
+
+    <delete id="delete">
+        update _eppdev_table set del_flag=1
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <delete id="realDelete">
+        delete _eppdev_table
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        update _eppdev_table
+        <set>
+            <if test="tableName !=null and tableName !=''">
+                table_name=#{tableName},
+            </if>
+            <if test="tableComment != null and tableComment != ''">
+                table_comment=#{tableComment},
+            </if>
+            <if test="moduleName != null and moduleName != ''">
+                module_name=#{moduleName},
+            </if>
+            <if test="entityName != null and entityName != ''">
+                entity_name=#{entityName},
+            </if>
+            <if test="tableType != null and tableType != ''">
+                table_type=#{tableType},
+            </if>
+            <if test="versionId != null and versionId != ''">
+                version_id=#{verionId},
+            </if>
+            <if test="createSql != null and createSql != ''">
+                create_sql=#{createSql},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark=#{remark},
+            </if>
+            <if test="delFlag !=null and delFlag != ''">
+                a.del_flag=#{delFlag},
+            </if>
+        </set>
+        <where>
+            and id=#{id}
+        </where>
+    </update>
+
+    <select id="get" resultType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.id=#{id}
+        </where>
+    </select>
+
+    <select id="listAll" resultType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag != 1
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            <if test="tableName !=null and tableName !=''">
+                and table_name = #{tableName}
+            </if>
+            <if test="versionId !=null and versionId !=''">
+                and version_id = #{versionId}
+            </if>
+            and a.del_flag != 1
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="listLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        <if test="tableName != null and tableName !=''">
+            <bind name="_bind_table_name" value="'%' + tableName + '%'"></bind>
+        </if>
+        <if test="entityName != null and entityName !=''">
+            <bind name="_bind_entity_name" value="'%' + entityName + '%'"></bind>
+        </if>
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag != 1
+            <if test="tableName !=null and tableName !=''">
+                and table_name like #{_bind_table_name}
+            </if>
+            <if test="entityName !=null and entityName !=''">
+                and entity_name like #{_bind_entity_name}
+            </if>
+            <if test="versionId !=null and versionId !=''">
+                and version_id = #{versionId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="listLeftLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        <bind name="_bind_name" value="name + '%'"></bind>
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from test_entity a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag != 1
+            <if test="tableName !=null and tableName !=''">
+                and name like #{_bind_name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="listRawLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from test_entity a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag != 1
+            <if test="tableName !=null and tableName !=''">
+                and name like #{name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="countAll">
+        select
+        count(1)
+        from test_entity a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag != 1
+        </where>
+    </select>
+
+
+    <select id="countBy">
+        select
+        count(1)
+        from test_entity a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag != 1
+        </where>
+    </select>
+
+
+    <select id="countLike">
+        select
+        count(1)
+        from test_entity a
+        <where>
+            and a.del_flag != 1
+        </where>
+    </select>
+
+</mapper>

@@ -27,6 +27,9 @@
         <logback.version>1.2.3</logback.version>
         <mybatis-springboot.version>1.2.0</mybatis-springboot.version>
         <pagehelper-springboot.version>1.1.0</pagehelper-springboot.version>
+        <mysql-connector.version>5.1.30</mysql-connector.version>
+	<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+	<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
     </properties>
 
     <dependencyManagement>
@@ -60,7 +63,7 @@
                 <version>${logback.version}</version>
             </dependency>
 
-            <!-- mybatis -->
+            <!-- for database -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -70,6 +73,11 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper-springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
             </dependency>
 
             <!-- for junit -->

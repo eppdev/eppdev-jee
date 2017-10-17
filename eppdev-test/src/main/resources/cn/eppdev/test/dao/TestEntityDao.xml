@@ -5,8 +5,8 @@
     <sql id="columns">
         a.id as "id",
         a.name as "name",
-        a.create_date as "createDate",
-        a.update_date as "updateDate",
+        a.create_time as "createTime",
+        a.update_time as "createTime",
         a.del_flag as "delFlag"
     </sql>
 
@@ -16,19 +16,19 @@
     <sql id="customJoins">
     </sql>
 
-    <insert id="insert" parameterType="java.util.Map">
+    <insert id="insert" parameterType="cn.eppdev.test.entity.TestEntity">
         insert into test_entity(
             id,
             name,
-            create_date,
-            update_date,
+            create_time,
+            update_time,
             del_flag
         )
         values(
             #{id},
             #{name},
-            #{createDate},
-            #{updateDate},
+            #{createTime},
+            #{createTime},
             #{delFlag}
         )
     </insert>
@@ -37,7 +37,7 @@
         update test_entity set del_flag=1 where id=#{id}
     </delete>
 
-    <update id="update" parameterType="java.util.Map">
+    <update id="update" parameterType="cn.eppdev.test.entity.TestEntity">
         update test_entity
         <set>
             <if test="name !=null and name != ''">
@@ -50,7 +50,7 @@
         where id = #{id}
     </update>
 
-    <select id="get" resultType="java.util.HashMap">
+    <select id="get" resultType="cn.eppdev.test.entity.TestEntity">
         select
         <include refid="columns"/>
         <include refid="customColumns"/>
@@ -59,7 +59,7 @@
         where a.id = #{id}
     </select>
 
-    <select id="listAll" resultType="java.util.HashMap">
+    <select id="listAll" resultType="cn.eppdev.test.entity.TestEntity">
         select
         <include refid="columns"/>
         <include refid="customColumns"/>
@@ -76,7 +76,7 @@
     </select>
 
 
-    <select id="listByEntity" resultType="java.util.HashMap">
+    <select id="listBy" resultType="cn.eppdev.test.entity.TestEntity">
         select
         <include refid="columns"/>
         <include refid="customColumns"/>
@@ -95,7 +95,8 @@
         </choose>
     </select>
 
-    <select id="listLike" resultType="java.util.HashMap">
+    <select id="listLike" resultType="cn.eppdev.test.entity.TestEntity">
+        <bind name="_bind_name" value="'%' + name + '%'"></bind>
         select
         <include refid="columns"/>
         <include refid="customColumns"/>
@@ -103,6 +104,9 @@
         <include refid="customJoins"/>
         <where>
             and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{_bind_name}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -111,7 +115,8 @@
         </choose>
     </select>
 
-    <select id="listLeftLike" resultType="java.util.HashMap">
+    <select id="listLeftLike" resultType="cn.eppdev.test.entity.TestEntity">
+        <bind name="_bind_name" value="name + '%'"></bind>
         select
         <include refid="columns"/>
         <include refid="customColumns"/>
@@ -119,6 +124,9 @@
         <include refid="customJoins"/>
         <where>
             and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{_bind_name}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -128,7 +136,7 @@
     </select>
 
 
-    <select id="listRawLike" resultType="java.util.HashMap">
+    <select id="listRawLike" resultType="cn.eppdev.test.entity.TestEntity">
         select
         <include refid="columns"/>
         <include refid="customColumns"/>
@@ -136,6 +144,9 @@
         <include refid="customJoins"/>
         <where>
             and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{name}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

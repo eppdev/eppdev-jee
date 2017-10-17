@@ -6,6 +6,7 @@
 
 package cn.eppdev.test;
 
+import cn.eppdev.test.entity.TestEntity;
 import cn.eppdev.test.service.TestEntityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,9 +15,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author: fan.hao
@@ -38,15 +36,15 @@ public class Application implements CommandLineRunner{
 
     @Override
     public void run(String... strings) throws Exception {
-        Map<String, Object> paramMap = new HashMap<>();
-//        paramMap.put("pageNum", 2);
-//        paramMap.put("pageSize", 5);
-        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.listAll()));
+        TestEntity paramEntiy = new TestEntity();
+        paramEntiy.setName("name%");
+        paramEntiy.setPageNum(2);
+        paramEntiy.setPageSize(5);
+        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.listRawLike(paramEntiy)));
         System.out.println(new ObjectMapper().writeValueAsString(testEntityService.get("0001")));
-        Map<String, Object> map = testEntityService.get("0002");
-        map.put("name", "nametest");
-        map.put("delFlag", 1);
-        testEntityService.save(map);
+        TestEntity testEntity = testEntityService.get("0002");
+        testEntity.setDelFlag(1);
+        testEntity.setName("nametest");
         System.out.println(testEntityService.get("0002"));
     }
 }

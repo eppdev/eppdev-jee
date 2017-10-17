@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.eppdev.codegenerator.manager.dao.EppdevColumnDao">
+
+    <sql id="columns">
+        a.id as "id",
+        a.table_id as "tableId",
+        a.column_name as "columnName",
+        a.column_type as "columnType",
+        a.column_length as "columnLength",
+        a.column_comment as "columnComment",
+        a.sort_index as "sortIndex",
+        a.primary_key as "primaryKey",
+        a.property_name as "propertyName",
+        a.java_type as "javaType",
+        a.origin_column_id as "originColumnId",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.del_flag as "delFalg"
+    </sql>
+
+    <sql id="customColumns">
+    </sql>
+
+    <sql id="customJoins">
+    </sql>
+
+    <insert id="insert" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        insert into _eppdev_column(
+            id,
+            table_id,
+            column_name,
+            column_type,
+            column_length,
+            column_comment,
+            sort_index,
+            primary_key,
+            property_name,
+            java_type,
+            origin_column_id,
+            create_time,
+            update_time,
+            del_flag
+        )
+        values(
+            #{id},
+            #{tableId},
+            #{columnName},
+            #{columnType},
+            #{columnLength},
+            #{columnComment},
+            #{sortIndex},
+            #{primaryKey},
+            #{propertyName},
+            #{javaType},
+            #{originColumnId},
+            #{createTime},
+            #{updateTime},
+            #{delFlag}
+        )
+    </insert>
+
+    <delete id="delete">
+        update _eppdev_column set del_flag=1 where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        update _eppdev_column
+        <set>
+            <if test="tableId !=null and tableId != ''">
+                table_id=#{tableId},
+            </if>
+            <if test="columnName !=null and columnName != ''">
+                column_name=#{columnName},
+            </if>
+            <if test="columnType !=null and columnType != ''">
+                column_type=#{columnType},
+            </if>
+            <if test="columnLength !=null and columnLength != ''">
+                column_length=#{columnLength},
+            </if>
+            <if test="primaryKey !=null and primaryKey != ''">
+                primary_key=#{primaryKey},
+            </if>
+            <if test="columnComment !=null and columnComment != ''">
+                column_comment=#{columnComment},
+            </if>
+            <if test="sortIndex !=null and sortIndex != ''">
+                sort_index=#{sortIndex},
+            </if>
+            <if test="propertyName !=null and propertyName != ''">
+                property_name=#{propertyName},
+            </if>
+            <if test="javaType !=null and javaType != ''">
+                java_type=#{javaType},
+            </if>
+            <if test="originColumnId !=null and originColumnId != ''">
+                origin_column_id=#{originColumnId},
+            </if>
+            <if test="remark !=null and remark != ''">
+                remark=#{remark},
+            </if>
+            <if test="createTime !=null and createTime != ''">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime !=null and updateTime != ''">
+                update_time=#{updateTime},
+            </if>
+            <if test="delFlag !=null and delFlag != ''">
+                del_flag=#{delFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="listAll" resultType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            <if test="tableId != null and tableId != ''">
+                and table_id = #{tableId}
+            </if>
+            <if test="columnName != null and columnName != ''">
+                and column_name = #{columnName}
+            </if>
+            and del_flag != 1
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="listLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        <bind name="_bind_name" value="'%' + name + '%'"></bind>
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{_bind_name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="listLeftLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        <bind name="_bind_name" value="name + '%'"></bind>
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{_bind_name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="listRawLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevColumn">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                order by ${orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="countAll">
+        select
+            count(1)
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+        </where>
+    </select>
+
+
+    <select id="countBy">
+        select
+        count(1)
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+        </where>
+    </select>
+
+
+    <select id="countLike">
+        select
+        count(1)
+        from _eppdev_column a
+        <where>
+            and del_flag != 1
+        </where>
+    </select>
+
+</mapper>

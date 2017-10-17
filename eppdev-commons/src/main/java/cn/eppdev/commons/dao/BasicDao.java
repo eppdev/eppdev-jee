@@ -6,22 +6,22 @@
 
 package cn.eppdev.commons.dao;
 
+import cn.eppdev.commons.entity.BasicEntity;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * MYBATIS DAO的基础接口类
  * @author fan.hao
  */
-public interface BasicDao {
-
+public interface BasicDao<T extends BasicEntity> {
 
     /**
      * 插入数据
-     * @param entityMap 要插入的数据
+     * @param entity 要插入的数据
      * @return 插入数据条数
      */
-    public int insert(Map<String, Object> entityMap);
+    public int insert(T entity);
 
     /**
      * 删除数据
@@ -36,51 +36,51 @@ public interface BasicDao {
      * @param Entity 要更新的数据
      * @return 更新成功的数据条数
      */
-    public int update(Map<String, Object> Entity);
+    public int update(T Entity);
 
     /**
      * 获取数据
      * @param id 数据ID
      * @return 数据对象
      */
-    public Map<String, Object> get(String id);
+    public T get(String id);
 
     /**
      * 查询所有数据
-     * @param entityMap 参数对象，只需有pageSize和pageNum两个属性即可
+     * @param entity 参数对象，只需有pageSize和pageNum两个属性即可
      * @return 结果列表
      */
-    public List<Map<String, Object>> listAll(Map<String, Object> entityMap);
+    public List<T> listAll(BasicEntity entity);
 
     /**
      * 查询数据，其中对于字符串参数采用“等于”条件
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 返回的结果列表
      */
-    public List<Map<String, Object>> listBy(Map<String, Object> entityMap);
+    public List<T> listBy(T entity);
 
 
     /**
      * 查询数据，其中对于字符串采用“like”条件，前后自动添加“%”
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 返回的结果列表
      */
-    public List<Map<String, Object>> listLike(Map<String, Object> entityMap);
+    public List<T> listLike(T entity);
 
     /**
      * 查询数据，其中对于字符串采用“like”条件，但是只在右边拼接“%”符号(使索引可以起作用)
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 返回的结果列表
      */
-    public List<Map<String, Object>> listLeftLike(Map<String, Object> entityMap);
+    public List<T> listLeftLike(T entity);
 
 
     /**
      * 查询数据，其中对于字符串采用“like”条件，不自动添加“%”，满足查询的需要
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 返回的结果列表
      */
-    public List<Map<String, Object>> listRawLike(Map<String, Object> entityMap);
+    public List<T> listRawLike(T entity);
 
 
     /**
@@ -95,28 +95,28 @@ public interface BasicDao {
     /**
      * <b>Deprecated: 使用PageHelper后请使用#listBy方法代替</b><br />
      * 根据条件查询数据条数，其中对于字符串参数采用“等于”条件。
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 满足条件的数据条数
      */
     @Deprecated
-    public int countBy(Map<String, Object> entityMap);
+    public int countBy(T entity);
 
 
     /**
      * <b>Deprecated: 使用PageHelper后请使用#listLike方法代替</b><br />
      * 根据条件查询数据条数，其中对于字符串参数采用“Like”条件，前后自动拼接“%”。
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 满足条件的数据条数
      */
     @Deprecated
-    public int countLike(Map<String, Object> entityMap);
+    public int countLike(T entity);
 
     /**
      * <b>Deprecated: 使用PageHelper后请使用#listLeftLike方法代替</b><br />
      * 根据条件查询数据条数，其中对于字符串参数采用“Like”条件，后面自动拼接“%”。
-     * @param entityMap 参数对象
+     * @param entity 参数对象
      * @return 满足条件的数据条数
      */
     @Deprecated
-    public int countLeftLike(Map<String, Object> entityMap);
+    public int countLeftLike(T entity);
 }
