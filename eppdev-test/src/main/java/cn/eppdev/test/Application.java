@@ -38,9 +38,7 @@ public class Application implements CommandLineRunner{
     public void run(String... strings) throws Exception {
         TestEntity paramEntiy = new TestEntity();
         paramEntiy.setName("name%");
-        paramEntiy.setPageNum(2);
-        paramEntiy.setPageSize(5);
-        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.listRawLike(paramEntiy)));
+        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.listRawLike(paramEntiy,3, 5)));
         System.out.println(new ObjectMapper().writeValueAsString(testEntityService.get("0001")));
         TestEntity testEntity = testEntityService.get("0002");
         testEntity.setDelFlag(1);

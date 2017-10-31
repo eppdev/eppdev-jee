@@ -101,10 +101,10 @@ public abstract class BasicService<T extends BasicEntity> {
      * @param pageSize
      * @return
      */
-    public PageInfo<T> listAll(int pageNum, int pageSize) {
+    public PageInfo<T> listAll(Integer pageNum, Integer pageSize) {
         BasicEntity entity = new BasicEntity();
-        entity.setPageNum(pageNum);
-        entity.setPageSize(pageSize);
+        entity.set_pageNum(pageNum);
+        entity.set_pageSize(pageSize);
         return new PageInfo<>(dao.listAll(entity));
     }
 
@@ -114,7 +114,11 @@ public abstract class BasicService<T extends BasicEntity> {
      * @param paramEntity
      * @return
      */
-    public PageInfo<T> listBy(T paramEntity) {
+    public PageInfo<T> listBy(T paramEntity, Integer pageNum, Integer pageSize) {
+        if (null != pageNum && null != pageSize) {
+            paramEntity.set_pageNum(pageNum);
+            paramEntity.set_pageSize(pageSize);
+        }
         return new PageInfo<>(dao.listBy(paramEntity));
     }
 
@@ -124,7 +128,11 @@ public abstract class BasicService<T extends BasicEntity> {
      * @param paramEntity
      * @return
      */
-    public PageInfo<T> listLike(T paramEntity) {
+    public PageInfo<T> listLike(T paramEntity, Integer pageNum, Integer pageSize) {
+        if (null != pageNum && null != pageSize) {
+            paramEntity.set_pageNum(pageNum);
+            paramEntity.set_pageSize(pageSize);
+        }
         return new PageInfo<>(dao.listLike(paramEntity));
     }
 
@@ -135,7 +143,11 @@ public abstract class BasicService<T extends BasicEntity> {
      * @param paramEntity
      * @return
      */
-    public PageInfo<T> listLeftLike(T paramEntity) {
+    public PageInfo<T> listLeftLike(T paramEntity, Integer pageNum, Integer pageSize) {
+        if (null != pageNum && null != pageSize) {
+            paramEntity.set_pageNum(pageNum);
+            paramEntity.set_pageSize(pageSize);
+        }
         return new PageInfo<>(dao.listLeftLike(paramEntity));
     }
 
@@ -146,7 +158,11 @@ public abstract class BasicService<T extends BasicEntity> {
      * @param paramEntity
      * @return
      */
-    public PageInfo<T> listRawLike(T paramEntity) {
+    public PageInfo<T> listRawLike(T paramEntity, Integer pageNum, Integer pageSize) {
+        if (null != pageNum && null != pageSize) {
+            paramEntity.set_pageNum(pageNum);
+            paramEntity.set_pageSize(pageSize);
+        }
         return new PageInfo<>(dao.listRawLike(paramEntity));
     }
 

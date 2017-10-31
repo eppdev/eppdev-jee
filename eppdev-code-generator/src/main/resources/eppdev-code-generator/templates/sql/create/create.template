@@ -1,0 +1,5 @@
+create table ${TABLE_NAME}(
+${COLUMNS}
+primary key(${PRIMARY_KEYS})
+) comment '${TABLE_COMMENT}';
+${COLUMN_INDEXS}

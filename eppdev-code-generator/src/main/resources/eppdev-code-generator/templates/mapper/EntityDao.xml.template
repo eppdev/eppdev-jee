@@ -38,10 +38,12 @@
     </delete>
 
     <update id="update" parameterType="java.util.Map">
-        update test_entity set
-        <if test="name !=null and name != ''">
-            <set>name=#{name}</set>
-        </if>
+        update test_entity
+        <set>
+            <if test="name !=null and name != ''">
+                name=#{name},
+            </if>
+        </set>
         where id = #{id}
     </update>
 

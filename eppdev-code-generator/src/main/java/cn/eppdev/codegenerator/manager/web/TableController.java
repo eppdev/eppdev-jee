@@ -48,7 +48,7 @@ public class TableController {
     @RequestMapping({"/"})
     public String list(EppdevTable eppdevTable,
                         Model model) {
-        PageInfo<EppdevTable> pageInfo = tableService.listLike(eppdevTable);
+        PageInfo<EppdevTable> pageInfo = tableService.listLike(eppdevTable, null, null);
         model.addAttribute("list", pageInfo.getList());
         return "table/list";
     }

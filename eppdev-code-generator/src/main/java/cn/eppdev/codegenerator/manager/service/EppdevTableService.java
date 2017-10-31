@@ -51,11 +51,11 @@ public class EppdevTableService extends BasicService<EppdevTable> {
 
         // 插入默认的字段
         columnService.save(ColumnBuilder.buildId(entity.getId()));
-        columnService.save(ColumnBuilder.buildCreateBy(entity.getId()));
+        columnService.save(ColumnBuilder.buildCreateUserId(entity.getId()));
         columnService.save(ColumnBuilder.buildCreateTime(entity.getId()));
         columnService.save(ColumnBuilder.buildUpdateTime(entity.getId()));
         columnService.save(ColumnBuilder.buildDelFlag(entity.getId()));
-        columnService.save(ColumnBuilder.buildUpdateBy(entity.getId()));
+        columnService.save(ColumnBuilder.buildUpdateUserId(entity.getId()));
 
         return result;
     }
@@ -69,10 +69,8 @@ public class EppdevTableService extends BasicService<EppdevTable> {
         } else {
             param.setVersionId(entity.getVersionId());
         }
-        param.setPageNum(1);
-        param.setPageSize(1);
         param.setTableName(entity.getTableName());
-        PageInfo<EppdevTable> pageInfo = super.listBy(param);
+        PageInfo<EppdevTable> pageInfo = super.listBy(param, 1, 1);
         if (pageInfo.getTotal() > 0) {
             return true;
         }
@@ -99,24 +97,24 @@ public class EppdevTableService extends BasicService<EppdevTable> {
     }
 
     @Override
-    public PageInfo<EppdevTable> listLike(EppdevTable paramEntity) {
-        if(null == paramEntity.getVersionId()){
+    public PageInfo<EppdevTable> listLike(EppdevTable paramEntity, Integer pageNum, Integer pageSize) {
+        if (null == paramEntity.getVersionId()) {
             paramEntity.setVersionId(DEFAULT_VERSION_ID);
         }
-        return super.listLike(paramEntity);
+        return super.listLike(paramEntity, pageNum, pageSize);
     }
 
     @Override
-    public PageInfo<EppdevTable> listBy(EppdevTable paramEntity) {
-        if(null == paramEntity.getVersionId()){
+    public PageInfo<EppdevTable> listBy(EppdevTable paramEntity, Integer pageNum, Integer pageSize) {
+        if (null == paramEntity.getVersionId()) {
             paramEntity.setVersionId(DEFAULT_VERSION_ID);
         }
-        return super.listBy(paramEntity);
+        return super.listBy(paramEntity, pageNum, pageSize);
     }
 
     @Override
-    public PageInfo<EppdevTable> listAll() {
-        return listBy(new EppdevTable());
+    public PageInfo<EppdevTable> listAll(Integer pageNum, Integer pageSize) {
+        return listBy(new EppdevTable(), pageNum, pageSize);
     }
 
     @Override
@@ -128,13 +126,13 @@ public class EppdevTableService extends BasicService<EppdevTable> {
         // 获取此表的索引
         EppdevIndex indexParm = new EppdevIndex();
         indexParm.setTableId(id);
-        eppdevTable.setIndexList(indexService.listBy(indexParm).getList());
+        eppdevTable.setIndexList(indexService.listBy(indexParm, null, null).getList());
 
         // 获取此表的列信息
         EppdevColumn columnParam = new EppdevColumn();
         columnParam.setTableId(id);
         columnParam.buildOrderBy("sort_index asc", "create_time");
-        eppdevTable.setColumnList(columnService.listBy(columnParam).getList());
+        eppdevTable.setColumnList(columnService.listBy(columnParam, null, null).getList());
 
         return eppdevTable;
     }

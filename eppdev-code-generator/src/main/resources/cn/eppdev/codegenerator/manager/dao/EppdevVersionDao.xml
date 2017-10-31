@@ -81,8 +81,8 @@
             and del_flag != 1
         </where>
         <choose>
-            <when test="orderBy != null and orderBy != ''">
-                order by ${orderBy}
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
             </when>
             <otherwise>
                 order by update_time desc
@@ -104,8 +104,8 @@
             and del_flag != 1
         </where>
         <choose>
-            <when test="orderBy != null and orderBy != ''">
-                order by ${orderBy}
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
             </when>
             <otherwise>
                 order by update_time desc
@@ -127,8 +127,8 @@
             </if>
         </where>
         <choose>
-            <when test="orderBy != null and orderBy != ''">
-                order by ${orderBy}
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
             </when>
         </choose>
     </select>
@@ -147,8 +147,8 @@
             </if>
         </where>
         <choose>
-            <when test="orderBy != null and orderBy != ''">
-                order by ${orderBy}
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
             </when>
         </choose>
     </select>
@@ -167,8 +167,8 @@
             </if>
         </where>
         <choose>
-            <when test="orderBy != null and orderBy != ''">
-                order by ${orderBy}
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
             </when>
         </choose>
     </select>

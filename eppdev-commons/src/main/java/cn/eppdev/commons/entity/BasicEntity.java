@@ -8,6 +8,7 @@ package cn.eppdev.commons.entity;
 
 import cn.eppdev.utils.json.JSONUtils;
 import cn.eppdev.utils.string.StringUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -16,16 +17,19 @@ import java.util.Date;
  */
 public class BasicEntity {
     private String id;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
-    private Date updateTime;
-    private int delFlag;
-    private String remark;
     private String createBy;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date updateTime;
+    private String updateBy;
+    private Integer delFlag;
+    private String remark;
 
-    private String orderBy;
+    private String _orderBy;
+    private Integer _pageNum;
+    private Integer _pageSize;
 
-    private int pageNum;
-    private int pageSize;
 
     public String getId() {
         return id;
@@ -43,6 +47,14 @@ public class BasicEntity {
         this.createTime = createTime;
     }
 
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -51,11 +63,19 @@ public class BasicEntity {
         this.updateTime = updateTime;
     }
 
-    public int getDelFlag() {
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Integer getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(int delFlag) {
+    public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
     }
 
@@ -67,44 +87,36 @@ public class BasicEntity {
         this.remark = remark;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public String get_orderBy() {
+        return _orderBy;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void set_orderBy(String _orderBy) {
+        this._orderBy = _orderBy;
     }
 
-    public int getPageNum() {
-        return pageNum;
+    public Integer get_pageNum() {
+        return _pageNum;
     }
 
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
+    public void set_pageNum(Integer _pageNum) {
+        this._pageNum = _pageNum;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public Integer get_pageSize() {
+        return _pageSize;
     }
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public void set_pageSize(Integer _pageSize) {
+        this._pageSize = _pageSize;
     }
 
-    public String getOrderBy() {
-        return orderBy;
-    }
-
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-    }
-
-    public void buildOrderBy(String... orderbyStrs){
+    public void buildOrderBy(String... orderbyStrs) {
         StringBuilder sb = new StringBuilder();
-        for(String str: orderbyStrs){
+        for (String str : orderbyStrs) {
             sb.append(str + ", ");
         }
-        this.orderBy = StringUtils.removeEnd(sb.toString().trim(), ",");
+        this._orderBy = StringUtils.removeEnd(sb.toString().trim(), ",");
     }
 
     @Override

@@ -56,11 +56,11 @@ public class ColumnBuilder {
      * @param tableId 表id
      * @return 要创建的create_by字段对应额java对象
      */
-    public static EppdevColumn buildCreateBy(String tableId){
+    public static EppdevColumn buildCreateUserId(String tableId){
         EppdevColumn column = new EppdevColumn();
         column.setTableId(tableId);
-        column.setColumnName("create_by");
-        column.setColumnComment("创建人");
+        column.setColumnName("create_user_id");
+        column.setColumnComment("创建人ID");
         column.setColumnType("varchar");
         column.setColumnLength(32);
         column.setJavaType("String");
@@ -93,11 +93,11 @@ public class ColumnBuilder {
      * @param tableId 表id
      * @return 要创建的update_by字段对应额java对象
      */
-    public static EppdevColumn buildUpdateBy(String tableId){
+    public static EppdevColumn buildUpdateUserId(String tableId){
         EppdevColumn column = new EppdevColumn();
         column.setTableId(tableId);
-        column.setColumnName("update_by");
-        column.setColumnComment("修改人");
+        column.setColumnName("update_user_id");
+        column.setColumnComment("修改人ID");
         column.setColumnType("varchar");
         column.setColumnLength(32);
         column.setJavaType("String");

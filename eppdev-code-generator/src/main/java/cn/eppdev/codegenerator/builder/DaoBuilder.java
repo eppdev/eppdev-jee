@@ -14,7 +14,4 @@ import cn.eppdev.codegenerator.manager.entity.TableInfo;
 public interface DaoBuilder {
     public String buildDao(TableInfo tableInfo);
 
-    public String build_Dao(TableInfo tableInfo);
-
-    public String build_Dao(String originContent, TableInfo tableInfo);
 }

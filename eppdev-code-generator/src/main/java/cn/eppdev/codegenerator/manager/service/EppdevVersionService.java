@@ -47,7 +47,7 @@ public class EppdevVersionService extends BasicService<EppdevVersion> {
         // 查询所有的表信息，依次保存
         EppdevTable tableParam = new EppdevTable();
         tableParam.setVersionId(originVersion);
-        PageInfo<EppdevTable> tablePageInfo = tableService.listBy(tableParam);
+        PageInfo<EppdevTable> tablePageInfo = tableService.listBy(tableParam, null, null);
         for (EppdevTable table : tablePageInfo.getList()) {
             String originId = table.getId();
             table.setId(null);
@@ -60,7 +60,7 @@ public class EppdevVersionService extends BasicService<EppdevVersion> {
             // 查询表中所有的类
             EppdevColumn columnParam = new EppdevColumn();
             columnParam.setTableId(originId);
-            PageInfo<EppdevColumn> columnPageInfo = columnService.listBy(columnParam);
+            PageInfo<EppdevColumn> columnPageInfo = columnService.listBy(columnParam, null, null);
             for (EppdevColumn column : columnPageInfo.getList()) {
                 column.setId(null);
                 column.setTableId(table.getId());
@@ -73,7 +73,7 @@ public class EppdevVersionService extends BasicService<EppdevVersion> {
             // 查询所有的
             EppdevIndex indexParm = new EppdevIndex();
             indexParm.setTableId(originId);
-            PageInfo<EppdevIndex> indexPageInfo = indexService.listBy(indexParm);
+            PageInfo<EppdevIndex> indexPageInfo = indexService.listBy(indexParm, null, null);
             for (EppdevIndex index : indexPageInfo.getList()) {
                 index.setId(null);
                 index.setTableId(table.getId());
@@ -90,7 +90,7 @@ public class EppdevVersionService extends BasicService<EppdevVersion> {
     public PageInfo<EppdevTable> listTables(String versionId) {
         EppdevTable tableParam = new EppdevTable();
         tableParam.setVersionId(versionId);
-        PageInfo<EppdevTable> pageInfo = tableService.listBy(tableParam);
+        PageInfo<EppdevTable> pageInfo = tableService.listBy(tableParam, null, null);
         return pageInfo;
     }
 
@@ -99,9 +99,7 @@ public class EppdevVersionService extends BasicService<EppdevVersion> {
     public boolean exists(EppdevVersion entity) {
         EppdevVersion param = new EppdevVersion();
         param.setVersionName(entity.getVersionName());
-        param.setPageNum(1);
-        param.setPageSize(1);
-        PageInfo<EppdevVersion> pageInfo = this.listBy(param);
+        PageInfo<EppdevVersion> pageInfo = this.listBy(param, 1, 1);
         if(pageInfo.getTotal() > 0){
             return true;
         }

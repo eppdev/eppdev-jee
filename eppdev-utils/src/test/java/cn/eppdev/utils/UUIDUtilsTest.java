@@ -14,9 +14,7 @@ import org.junit.Test;
  */
 public class UUIDUtilsTest {
     @Test
-    public void testUUID(){
-        for(int i=0; i<10; i++) {
-            System.out.println(UUIDUtils.getUUID());
-        }
+    public void testUUID() {
+        System.out.println(UUIDUtils.getUUID());
     }
 }

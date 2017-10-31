@@ -1,0 +1,2 @@
+create index ${INDEX_NAME}
+   on ${TABLE_NAME}(${INDEX_COLUMN_NAMES});

@@ -27,9 +27,7 @@ public class EppdevColumnService extends BasicService<EppdevColumn> {
         EppdevColumn param = new EppdevColumn();
         param.setColumnName(entity.getColumnName());
         param.setTableId(entity.getTableId());
-        param.setPageNum(1);
-        param.setPageSize(1);
-        PageInfo<EppdevColumn> info = listBy(param);
+        PageInfo<EppdevColumn> info = listBy(param, 1,1 );
         if(info.getTotal() > 0){
             return true;
         }

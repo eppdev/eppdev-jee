@@ -24,9 +24,7 @@ public class EppdevIndexService extends BasicService<EppdevIndex> {
             EppdevIndex param = new EppdevIndex();
             param.setTableId(entity.getTableId());
             param.setIndexName(entity.getIndexName());
-            param.setPageNum(1);
-            param.setPageSize(1);
-            PageInfo<EppdevIndex> pageInfo = super.listBy(param);
+            PageInfo<EppdevIndex> pageInfo = super.listBy(param, 1, 1);
             if(pageInfo.getTotal() > 0){
                 return true;
             }
@@ -35,9 +33,7 @@ public class EppdevIndexService extends BasicService<EppdevIndex> {
             EppdevIndex param = new EppdevIndex();
             param.setTableId(entity.getTableId());
             param.setColumnNames(entity.getColumnNames());
-            param.setPageNum(1);
-            param.setPageSize(1);
-            PageInfo<EppdevIndex> pageInfo = super.listBy(param);
+            PageInfo<EppdevIndex> pageInfo = super.listBy(param, 1, 1);
             if(pageInfo.getTotal() > 0){
                 return true;
             }
