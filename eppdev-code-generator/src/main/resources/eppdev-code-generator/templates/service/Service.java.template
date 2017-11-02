@@ -1,0 +1,47 @@
+/*
+ * # ${ENTITY_NAME}Service.java -- ${TABLE_NAME}对应的Service类
+ * Entity: ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME}.java
+ * DAO: ${PACKAGE_NAME}${MODULE_NAME_PKG}.dao.${ENTITY_NAME}Dao.java
+ * Mapper: [resources/]${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Dao.xml
+ * Service: ${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Service.java
+ * Controller: ${PACKAGE_NAME}${MODULE_NAME_PKG}.web.${ENTITY_NAME}Controller.java
+ * Author: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
+ * Date: ${DATE}
+ */
+
+package ${PACKAGE_NAME}${MODULE_NAME_PKG}.service;
+
+import cn.eppdev.commons.service.BasicService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME};
+
+/**
+ * @author: ${AUTHOR_NAME}
+ */
+@Service
+@Transactional(readOnly = true)
+public class ${ENTITY_NAME}Service extends BasicService<${ENTITY_NAME}> {
+    private static Logger logger = LoggerFactory.getLogger(${ENTITY_NAME}Service.class);
+
+        /**
+         * 判断是否存在，自定义方法，用于数据插入前的检查
+         * @param entity 要检查的数据
+         */
+        @Override
+        public boolean exists(${ENTITY_NAME} entity) {
+            return false;
+        }
+
+        /**
+         * 数据的自定义初始化工作，用于保存前的自定义初始化
+         * @param entity 要检查的数据
+         */
+        @Override
+        public void customeInit(${ENTITY_NAME} entity) {
+
+        }
+}

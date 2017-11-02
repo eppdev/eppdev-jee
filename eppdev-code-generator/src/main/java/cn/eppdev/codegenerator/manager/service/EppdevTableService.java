@@ -41,6 +41,7 @@ public class EppdevTableService extends BasicService<EppdevTable> {
     @Autowired
     SchemaService schemaService;
 
+
     @Transactional(readOnly = false)
     public int insert(EppdevTable entity) {
         logger.debug("entity: {}", entity);

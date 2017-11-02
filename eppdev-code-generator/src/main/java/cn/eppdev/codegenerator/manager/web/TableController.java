@@ -10,6 +10,7 @@ import cn.eppdev.codegenerator.manager.entity.EppdevColumn;
 import cn.eppdev.codegenerator.manager.entity.EppdevTable;
 import cn.eppdev.codegenerator.manager.service.EppdevIndexService;
 import cn.eppdev.codegenerator.manager.service.EppdevTableService;
+import cn.eppdev.codegenerator.manager.service.GeneratorService;
 import cn.eppdev.codegenerator.manager.service.SchemaService;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -37,6 +38,9 @@ public class TableController {
 
     @Autowired
     SchemaService schemaService;
+
+    @Autowired
+    GeneratorService generatorService;
 
 
     @RequestMapping("/test")
@@ -70,6 +74,7 @@ public class TableController {
                 return "redirect:/table/";
             } else {
                 redirectAttributes.addFlashAttribute("message", "保存成功");
+                generatorService.createDao(eppdevTable.getId());
                 return "redirect:/table/" + eppdevTable.getId();
             }
         } catch (Exception e) {
@@ -100,6 +105,10 @@ public class TableController {
                            EppdevTable eppdevTable) {
         try {
             int count = tableService.save(eppdevTable);
+            generatorService.createDao(eppdevTable.getId());
+            generatorService.createEntity(eppdevTable.getId());
+            generatorService.create_Entity(eppdevTable.getId());
+            generatorService.createService(eppdevTable.getId());
             redirectAttributes.addFlashAttribute("message", "保存成功");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "保存失败：" + e.getMessage());

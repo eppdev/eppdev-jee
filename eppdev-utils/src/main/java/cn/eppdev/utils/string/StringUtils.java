@@ -75,4 +75,28 @@ public class StringUtils {
 		String str = removeBefore(content, toRemove);
 		return removeEnd(str, toRemove);
 	}
+
+	/**
+	 * 判断字符串是否为空值
+	 * @param str
+	 * @return
+	 */
+	public static boolean isBlank(String str){
+		if(null == str || str.trim().length() == 0){
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 判断字符串是否为非空值
+	 * @param str
+	 * @return
+	 */
+	public static boolean isNotBlank(String str){
+		if(null == str || str.trim().length() == 0){
+			return false;
+		}
+		return true;
+	}
 }

@@ -27,6 +27,10 @@ public class CodeGeneratorPropsUtils {
 
     private static final String PACKAGE_NAME_KEY = "package_name";
 
+    private static final String USER_NAME_KEY = "user_name";
+
+    private static final String USER_EMAIL_KEY = "user_email";
+
     static{
         try {
             CG_PROPS.load(CodeGeneratorPropsUtils.class.getResourceAsStream("/eppdev-code-generator.properties"));

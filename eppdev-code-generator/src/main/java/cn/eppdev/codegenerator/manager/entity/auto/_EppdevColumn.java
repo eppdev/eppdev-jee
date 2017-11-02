@@ -103,4 +103,4 @@ public class _EppdevColumn extends BasicEntity {
     public void setOriginColumnId(String originColumnId) {
         this.originColumnId = originColumnId;
     }
-}
+} /* end */

@@ -70,3 +70,15 @@ create table if not exists _eppdev_index(
   del_flag integer comment '删除标识',
   primary key(id)
 ) comment '索引信息';
+
+
+create table if not exists _eppdev_conf(
+  id char(32) comment 'UUID, 唯一标识',
+  conf_name varchar(50) comment '配置项目名称',
+  conf_value  varchar(255) comment '配置内容',
+  remark varchar(255) comment '说明',
+  create_time datetime comment '创建时间',
+  update_time datetime comment '修改时间',
+  del_flag integer comment '删除标识',
+  primary key(id)
+) comment '创建配置信息';

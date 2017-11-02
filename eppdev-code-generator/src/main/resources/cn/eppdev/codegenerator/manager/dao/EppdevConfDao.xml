@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.eppdev.codegenerator.manager.dao.EppdevConfDao">
+
+    <sql id="columns">
+        a.id as "id",
+        a.conf_name as "confName",
+        a.conf_value as "confValue",
+        a.remark as "remark",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.del_flag as "delFalg"
+    </sql>
+
+    <sql id="customColumns">
+    </sql>
+
+    <sql id="customJoins">
+    </sql>
+
+    <insert id="insert" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        insert into _eppdev_conf(
+            id,
+            conf_name,
+            conf_value,
+            remark,
+            create_time,
+            update_time,
+            del_flag
+        )
+        values(
+            #{id},
+            #{confName},
+            #{confValue},
+            #{remark},
+            #{createTime},
+            #{updateTime},
+            #{delFlag}
+        )
+    </insert>
+
+    <delete id="delete">
+        update _eppdev_conf set del_flag=1 where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        update _eppdev_conf
+        <set>
+            <if test="confName !=null and confName != ''">
+                conf_name=#{confName},
+            </if>
+            <if test="confValue !=null and confValue != ''">
+                conf_value=#{confValue},
+            </if>
+            <if test="remark !=null and remark != ''">
+                remark=#{remark},
+            </if>
+            <if test="createTime !=null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime !=null">
+                update_time=#{updateTime},
+            </if>
+            <if test="delFlag !=null and delFlag != ''">
+                del_flag=#{delFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        where a.id = #{id}
+    </select>
+
+    <select id="listAll" resultType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            <if test="confName != null and confName != ''">
+                and conf_name = #{confName}
+            </if>
+            <if test="confValue != null and confValue != ''">
+                and conf_value = #{confValue}
+            </if>
+            and del_flag != 1
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="listLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        <bind name="_bind_name" value="'%' + name + '%'"></bind>
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{_bind_name}
+            </if>
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="listLeftLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        <bind name="_bind_name" value="name + '%'"></bind>
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{_bind_name}
+            </if>
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="listRawLike" resultType="cn.eppdev.codegenerator.manager.entity.EppdevConf">
+        select
+        <include refid="columns"/>
+        <include refid="customColumns"/>
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+            <if test="name !=null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+        </choose>
+    </select>
+
+    <select id="countAll">
+        select
+            count(1)
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+        </where>
+    </select>
+
+
+    <select id="countBy">
+        select
+        count(1)
+        from _eppdev_conf a
+        <include refid="customJoins"/>
+        <where>
+            and del_flag != 1
+        </where>
+    </select>
+
+
+    <select id="countLike">
+        select
+        count(1)
+        from _eppdev_conf a
+        <where>
+            and del_flag != 1
+        </where>
+    </select>
+
+</mapper>
