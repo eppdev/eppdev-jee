@@ -79,7 +79,7 @@ public abstract class BasicBuildService {
         Map<String, String> result = new HashMap<>();
         result.put("DATE", DateUtils.getCurrentDate());
         result.put("DATETIME", DateUtils.getCurrentDateTime());
-        if (null != eppdevTable) {
+        if (null != eppdevTable && null != eppdevTable.getTableName()) {
             result.put("TABLE_NAME", eppdevTable.getTableName());
             result.put("ENTITY_NAME", eppdevTable.getEntityName() == null ?
                     NameUtils.buildEntityName(eppdevTable.getTableName()) : eppdevTable.getEntityName());

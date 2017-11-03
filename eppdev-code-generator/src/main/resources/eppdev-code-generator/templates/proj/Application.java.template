@@ -1,0 +1,22 @@
+/*
+ * #Application.java -- 项目启动类
+ * 作者: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
+ * 日期: ${DATE}
+ */
+
+package ${BASIC_PACKAGE_NAME};
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+/**
+ * @author: ${AUTHOR_NAME}
+ */
+@SpringBootApplication
+@MapperScan(basePackages = {"${BASIC_PACKAGE_NAME}"})
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class);
+    }
+}

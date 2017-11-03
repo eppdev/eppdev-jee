@@ -100,10 +100,10 @@
             <if test="remark !=null and remark != ''">
                 remark=#{remark},
             </if>
-            <if test="createTime !=null and createTime != ''">
+            <if test="createTime !=null">
                 create_time=#{createTime},
             </if>
-            <if test="updateTime !=null and updateTime != ''">
+            <if test="updateTime !=null">
                 update_time=#{updateTime},
             </if>
             <if test="delFlag !=null and delFlag != ''">

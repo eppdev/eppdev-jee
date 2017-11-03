@@ -21,6 +21,9 @@ public class StringUtils {
 	 * @return 将str的首字母转换成为大写后的结果
 	 */
 	public static String firstUpper(String str) {
+		if(null == str || str.length() == 0){
+			return "";
+		}
 		char ch = str.charAt(0);
 		ch = Character.toUpperCase(ch);
 		return ch + str.substring(1);
@@ -34,6 +37,9 @@ public class StringUtils {
 	 * @return 将str的首字母转换成为小写后的结果
 	 */
 	public static String firstLower(String str) {
+		if(null == str || str.length() == 0){
+			return "";
+		}
 		char ch = str.charAt(0);
 		ch = Character.toLowerCase(ch);
 		return ch + str.substring(1);

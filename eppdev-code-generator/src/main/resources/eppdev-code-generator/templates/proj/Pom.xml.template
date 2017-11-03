@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.eppdev.test</groupId>
-    <artifactId>eppdev-test</artifactId>
+    <groupId>${BASIC_PACKAGE_NAME}</groupId>
+    <artifactId>${PROJECT_NAME}</artifactId>
 
     <dependencies>
         <!-- for eppdev -->

@@ -11,6 +11,7 @@ import cn.eppdev.codegenerator.manager.entity.EppdevIndex;
 import cn.eppdev.codegenerator.manager.entity.EppdevTable;
 import cn.eppdev.codegenerator.utils.name.NameUtils;
 import cn.eppdev.commons.service.BasicService;
+import cn.eppdev.utils.string.StringUtils;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class EppdevTableService extends BasicService<EppdevTable> {
 
     private static Logger logger = LoggerFactory.getLogger(EppdevTableService.class);
 
-    private static final String DEFAULT_VERSION_ID = "00000000000000000000000000000000";
+    public static final String DEFAULT_VERSION_ID = "00000000000000000000000000000000";
 
     private static final int DEFAULT_TABLE_TYPE = 200;
 
@@ -91,6 +92,11 @@ public class EppdevTableService extends BasicService<EppdevTable> {
         // 设置默认的表类型
         if (null == entity.getTableType()) {
             entity.setTableType(DEFAULT_TABLE_TYPE);
+        }
+
+        // 设置默认的模块名
+        if (null == entity.getModuleName()) {
+            entity.setModuleName(StringUtils.removeBefore(entity.getTableName(), "_").split("_")[0]);
         }
         entity.setOriginTableId(entity.getId());
 

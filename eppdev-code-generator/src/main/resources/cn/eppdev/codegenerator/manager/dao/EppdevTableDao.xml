@@ -74,25 +74,25 @@
     <update id="update" parameterType="cn.eppdev.codegenerator.manager.entity.EppdevTable">
         update _eppdev_table
         <set>
-            <if test="tableName !=null and tableName !=''">
+            <if test="tableName !=nul">
                 table_name=#{tableName},
             </if>
-            <if test="tableComment != null and tableComment != ''">
+            <if test="tableComment != null">
                 table_comment=#{tableComment},
             </if>
-            <if test="moduleName != null and moduleName != ''">
+            <if test="moduleName != null">
                 module_name=#{moduleName},
             </if>
-            <if test="entityName != null and entityName != ''">
+            <if test="entityName != null">
                 entity_name=#{entityName},
             </if>
-            <if test="tableType != null and tableType != ''">
+            <if test="tableType != null">
                 table_type=#{tableType},
             </if>
-            <if test="versionId != null and versionId != ''">
+            <if test="versionId != null">
                 version_id=#{verionId},
             </if>
-            <if test="createSql != null and createSql != ''">
+            <if test="createSql != null">
                 create_sql=#{createSql},
             </if>
             <if test="createTime != null">

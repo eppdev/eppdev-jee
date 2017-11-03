@@ -47,4 +47,12 @@ public class TypeStdUtils {
         return result;
     }
 
+    public static Map<String, Boolean> needLengthConf(){
+        Map<String, Boolean> result = new HashMap<>();
+        for(ColumnTypeStdEntity entity : getColumnStdList()){
+            result.put(entity.getTypeName(), entity.isNeedLength());
+        }
+        return result;
+    }
+
 }

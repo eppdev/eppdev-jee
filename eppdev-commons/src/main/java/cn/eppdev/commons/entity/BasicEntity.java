@@ -68,6 +68,8 @@ public class BasicEntity {
     // del_flag对应的属性
     // ---------------------------------
     private Integer delFlag;
+    private Integer _minDelFlag;
+    private Integer _maxDelFlag;
 
     // ---------------------------------
     // remark对应的属性
@@ -198,6 +200,22 @@ public class BasicEntity {
 
     public void set_updateProperties(Set<String> _updateProperties) {
         this._updateProperties = _updateProperties;
+    }
+
+    public Integer get_minDelFlag() {
+        return _minDelFlag;
+    }
+
+    public void set_minDelFlag(Integer _minDelFlag) {
+        this._minDelFlag = _minDelFlag;
+    }
+
+    public Integer get_maxDelFlag() {
+        return _maxDelFlag;
+    }
+
+    public void set_maxDelFlag(Integer _maxDelFlag) {
+        this._maxDelFlag = _maxDelFlag;
     }
 
     public void buildOrderBy(String... orderbyStrs) {

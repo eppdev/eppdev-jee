@@ -15,6 +15,6 @@ ${WHERE_LIKE}
                 order by ${_orderBy}
             </when>
             <otherwise>
-                order by update_time desc
+                order by a.update_time desc
             </otherwise>
         </choose>
