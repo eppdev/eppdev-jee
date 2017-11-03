@@ -1,0 +1,9 @@
+            <if test="${PROPERTY_NAME} !=null">
+                and ${COLUMN_NAME} = #{${PROPERTY_NAME}}
+            </if>
+            <if test="_min${PROPERTY_NAME_UP} !=null">
+                and ${COLUMN_NAME} &gt;= #{_min${PROPERTY_NAME_UP}}
+            </if>
+            <if test="_max${PROPERTY_NAME_UP} !=null">
+                and ${COLUMN_NAME} &lt;= #{_max${PROPERTY_NAME_UP}}
+            </if>

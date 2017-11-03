@@ -1,0 +1,12 @@
+    public ${JAVA_TYPE} get${PROPERTY_NAME_UP}() {
+        return this.${PROPERTY_NAME};
+    }
+
+    public ${JAVA_TYPE} get_max${PROPERTY_NAME_UP}() {
+        return this._max${PROPERTY_NAME_UP};
+    }
+
+    public ${JAVA_TYPE} get_min${PROPERTY_NAME_UP}() {
+        return this._min${PROPERTY_NAME_UP};
+    }
+

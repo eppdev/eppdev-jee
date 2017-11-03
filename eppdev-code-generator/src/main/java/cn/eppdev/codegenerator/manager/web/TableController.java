@@ -74,7 +74,6 @@ public class TableController {
                 return "redirect:/table/";
             } else {
                 redirectAttributes.addFlashAttribute("message", "保存成功");
-                generatorService.createDao(eppdevTable.getId());
                 return "redirect:/table/" + eppdevTable.getId();
             }
         } catch (Exception e) {
@@ -109,6 +108,7 @@ public class TableController {
             generatorService.createEntity(eppdevTable.getId());
             generatorService.create_Entity(eppdevTable.getId());
             generatorService.createService(eppdevTable.getId());
+            generatorService.createMapper(eppdevTable.getId());
             redirectAttributes.addFlashAttribute("message", "保存成功");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "保存失败：" + e.getMessage());

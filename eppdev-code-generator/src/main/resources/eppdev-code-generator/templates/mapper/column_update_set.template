@@ -1,3 +1,0 @@
-               <if test="${PROPERTY_NAME} !=null and ${PROPERTY_NAME} != ''">
-                   ${COLUMN_NAME}=#{${PROPERTY_NAME}}
-               </if>

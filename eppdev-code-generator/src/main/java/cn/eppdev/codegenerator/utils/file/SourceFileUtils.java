@@ -38,44 +38,18 @@ public class SourceFileUtils {
     /**
      * 读取源文件内容
      *
-     * @param workSpaceDir     工程所在文件夹
-     * @param projectDir       项目名称
-     * @param basicPackageName 基础包名
-     * @param moduleName       模块名
-     * @param fileName         文件名
+     * @param workSpaceDir 工程所在文件夹
+     * @param projectDir   项目名称
+     * @param srcDir       工程目录下源文件所在文件夹
+     * @param packageName  包名
+     * @param fileName     文件名
      * @return 文件全文
      * @throws IOException 读取异常
      */
     public static String readSourceFileToString(String workSpaceDir, String projectDir,
-                                                String basicPackageName, String moduleName,
+                                                String srcDir, String packageName,
                                                 String fileName) throws IOException {
-        String srcDir;
-        if (fileName.endsWith(".java")) {
-            srcDir = workSpaceDir + "/" + projectDir + "/src/main/java";
-        } else if (fileName.equals("pom.xml")) {
-            srcDir = workSpaceDir;
-        } else {
-            srcDir = workSpaceDir + "/" + projectDir + "/src/main/resources";
-        }
-
-        String packageName = basicPackageName;
-        if (null != moduleName) {
-            packageName += ("/" + moduleName);
-        }
-        if (fileName.contains("Dao.")) {
-            packageName += "/dao";
-        }
-        if (fileName.contains("Entity.")) {
-            packageName += "/entity";
-        }
-        if (fileName.contains("Service.")) {
-            packageName += "/service";
-        }
-        if (fileName.contains("Controller.")) {
-            packageName += "/web";
-        }
-
-        return readSourceFileToString(srcDir, packageName, fileName);
+        return readSourceFileToString(workSpaceDir + "/" + projectDir + "/" +srcDir, packageName, fileName);
     }
 
     /**

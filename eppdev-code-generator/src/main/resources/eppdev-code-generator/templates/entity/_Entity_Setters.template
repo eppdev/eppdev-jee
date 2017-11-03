@@ -1,0 +1,4 @@
+    public void set${PROPERTY_NAME_UP}(${JAVA_TYPE} ${PROPERTY_NAME}) {
+        this.${PROPERTY_NAME} =  ${PROPERTY_NAME};
+    }
+

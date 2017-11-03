@@ -16,6 +16,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author: fan.hao
  */
@@ -38,11 +41,9 @@ public class Application implements CommandLineRunner{
     public void run(String... strings) throws Exception {
         TestEntity paramEntiy = new TestEntity();
         paramEntiy.setName("name%");
-        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.listRawLike(paramEntiy,3, 5)));
-        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.get("0001")));
-        TestEntity testEntity = testEntityService.get("0002");
-        testEntity.setDelFlag(1);
-        testEntity.setName("nametest");
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "name001");
+        System.out.println(new ObjectMapper().writeValueAsString(testEntityService.listBy(map, 1, 1)));
         System.out.println(testEntityService.get("0002"));
     }
 }

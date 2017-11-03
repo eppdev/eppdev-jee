@@ -1,0 +1,7 @@
+    // ---------------------------------
+    // ${COLUMN_NAME}的属性
+    // ---------------------------------
+    private ${JAVA_TYPE} ${PROPERTY_NAME};
+    private ${JAVA_TYPE} _max${PROPERTY_NAME_UP}; // 仅用于查询条件
+    private ${JAVA_TYPE} _min${PROPERTY_NAME_UP}; // 仅用于查询条件
+

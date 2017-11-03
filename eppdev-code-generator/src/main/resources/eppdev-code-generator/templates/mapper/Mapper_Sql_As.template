@@ -1,0 +1,1 @@
+        a.${COLUMN_NAME} as "${PROPERTY_NAME}",

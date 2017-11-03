@@ -6,7 +6,6 @@
 
 package cn.eppdev.codegenerator.manager.service;
 
-import cn.eppdev.codegenerator.builder.ColumnBuilder;
 import cn.eppdev.codegenerator.manager.entity.EppdevColumn;
 import cn.eppdev.codegenerator.manager.entity.EppdevIndex;
 import cn.eppdev.codegenerator.manager.entity.EppdevTable;
@@ -51,12 +50,12 @@ public class EppdevTableService extends BasicService<EppdevTable> {
         int result = super.save(entity);
 
         // 插入默认的字段
-        columnService.save(ColumnBuilder.buildId(entity.getId()));
-        columnService.save(ColumnBuilder.buildCreateUserId(entity.getId()));
-        columnService.save(ColumnBuilder.buildCreateTime(entity.getId()));
-        columnService.save(ColumnBuilder.buildUpdateTime(entity.getId()));
-        columnService.save(ColumnBuilder.buildDelFlag(entity.getId()));
-        columnService.save(ColumnBuilder.buildUpdateUserId(entity.getId()));
+        columnService.save(EppdevColumnService.buildId(entity.getId()));
+        columnService.save(EppdevColumnService.buildCreateUserId(entity.getId()));
+        columnService.save(EppdevColumnService.buildCreateTime(entity.getId()));
+        columnService.save(EppdevColumnService.buildUpdateTime(entity.getId()));
+        columnService.save(EppdevColumnService.buildDelFlag(entity.getId()));
+        columnService.save(EppdevColumnService.buildUpdateUserId(entity.getId()));
 
         return result;
     }

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao">
+
+    <sql id="columns">
+${SQL_AS}
+    </sql>
+
+    <sql id="customColumns">
+    </sql>
+
+    <sql id="customJoins">
+    </sql>
+
+    <insert id="insert" parameterType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+${INSERT}
+    </insert>
+
+    <delete id="delete">
+        update ${TABLE_NAME} set del_flag=1
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <delete id="realDelete">
+        delete ${TABLE_NAME}
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+${UPDATE}
+    </update>
+
+    <select id="get" resultType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from ${TABLE_NAME} a
+        <include refid="customJoins"/>
+        <where>
+            and a.id=#{id}
+        </where>
+    </select>
+
+    <select id="listAll" resultType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from ${TABLE_NAME} a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag =0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+${LIST_BY}
+    </select>
+
+    <select id="listLike" resultType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+${LIST_LIKE}
+    </select>
+
+    <select id="listLeftLike" resultType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+${LIST_LEFT_LIKE}
+    </select>
+
+
+    <select id="listRawLike" resultType="${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}">
+${LIST_RAW_LIKE}
+    </select>
+
+    <select id="countAll">
+        select
+        count(1)
+        from test_entity a
+        <where>
+            and a.del_flag =0
+        </where>
+    </select>
+
+
+    <select id="countBy">
+${COUNT_BY}
+    </select>
+
+
+    <select id="countLike">
+${COUNT_LIKE}
+    </select>
+
+</mapper>

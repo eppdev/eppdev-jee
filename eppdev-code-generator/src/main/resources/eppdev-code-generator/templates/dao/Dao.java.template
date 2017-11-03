@@ -1,18 +1,20 @@
 /*
- * #${ENTITY_NAME}Dao.java -- ${TABLE_NAME} 对应的DAO类，  * 自定义的DAO方法请在此增加，并对应的修改相应的Mapper文件
- * Entity: ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME}.java
- * DAO: ${PACKAGE_NAME}${MODULE_NAME_PKG}.dao.${ENTITY_NAME}Dao.java
- * Mapper: [resources/]${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Dao.xml
- * Service: ${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Service.java
- * Controller: ${PACKAGE_NAME}${MODULE_NAME_PKG}.web.${ENTITY_NAME}Controller.java
- * Author: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
- * Date: ${DATE}
+ * #${ENTITY_NAME}Dao.java -- ${TABLE_NAME} 对应的DAO类，自定义的DAO方法请在此增加，并对应的修改相应的Mapper文件
+ * 相关文件如下：
+ *      Entity: ${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}.java
+ *      DAO: ${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao.java
+ *      Mapper: ${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao.xml([resources/])
+ *      Service: ${PACKAGE_NAME_SERVICE}.${ENTITY_NAME}Service.java
+ *      Controller: ${PACKAGE_NAME_CONTROLLER}.${ENTITY_NAME}Controller.java
+ *
+ * 作者: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
+ * 日期: ${DATE}
  */
 
-package ${PACKAGE_NAME}${MODULE_NAME_PKG}.dao;
+package ${PACKAGE_NAME_DAO};
 
 import cn.eppdev.commons.dao.BasicDao;
-import ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME};
+import ${PACKAGE_NAME_ENTITY}.${ENTITY_NAME};
 
 /**
  * ${TABLE_NAME} 对应的DAO类

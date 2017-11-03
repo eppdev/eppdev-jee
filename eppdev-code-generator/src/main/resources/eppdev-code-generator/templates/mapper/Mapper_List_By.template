@@ -1,0 +1,19 @@
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from ${TABLE_NAME} a
+        <include refid="customJoins"/>
+        <where>
+${WHERE_BY}
+            and a.del_flag = 0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>

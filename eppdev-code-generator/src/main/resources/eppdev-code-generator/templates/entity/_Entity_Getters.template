@@ -1,0 +1,4 @@
+    public ${JAVA_TYPE} get${PROPERTY_NAME_UP}() {
+        return this.${PROPERTY_NAME};
+    }
+

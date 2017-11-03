@@ -1,0 +1,10 @@
+    // ---------------------------------
+    // ${COLUMN_NAME}的属性
+    // ---------------------------------
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private ${JAVA_TYPE} ${PROPERTY_NAME};
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private ${JAVA_TYPE} _max${PROPERTY_NAME_UP}; // 仅用于查询条件
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private ${JAVA_TYPE} _min${PROPERTY_NAME_UP}; // 仅用于查询条件
+

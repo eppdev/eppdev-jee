@@ -1,0 +1,4 @@
+    public static final String COLUMN_${COLUMN_NAME_UP}_ = "${COLUMN_NAME}";
+    public static final String COLUMN_${COLUMN_NAME_UP}_ASC_ = "${COLUMN_NAME} asc";
+    public static final String COLUMN_${COLUMN_NAME_UP}_DESC_ = "${COLUMN_NAME} desc";
+

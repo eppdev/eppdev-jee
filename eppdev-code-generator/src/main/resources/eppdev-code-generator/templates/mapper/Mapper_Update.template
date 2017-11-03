@@ -1,0 +1,7 @@
+        update ${TABLE_NAME}
+        <set>
+${UPDATE_SET}
+        </set>
+        <where>
+            and id=#{id}
+        </where>

@@ -80,4 +80,17 @@ public class ColumnController {
         }
         return "redirect:/table/" + tableId;
     }
+
+    @RequestMapping("/{columnId}/delete")
+    public String doDelete(RedirectAttributes redirectAttributes,
+                           @PathVariable("tableId") String  tableId,
+                           @PathVariable("columnId") String columnId){
+        try {
+            columnService.delete(columnId);
+            redirectAttributes.addFlashAttribute("message", "数据保存成功");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "数据保存失败：" + e.getMessage());
+        }
+        return "redirect:/table/" + tableId;
+    }
 }

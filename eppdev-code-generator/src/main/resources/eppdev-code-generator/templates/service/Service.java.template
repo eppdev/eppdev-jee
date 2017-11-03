@@ -1,15 +1,17 @@
 /*
  * # ${ENTITY_NAME}Service.java -- ${TABLE_NAME}对应的Service类
- * Entity: ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME}.java
- * DAO: ${PACKAGE_NAME}${MODULE_NAME_PKG}.dao.${ENTITY_NAME}Dao.java
- * Mapper: [resources/]${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Dao.xml
- * Service: ${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Service.java
- * Controller: ${PACKAGE_NAME}${MODULE_NAME_PKG}.web.${ENTITY_NAME}Controller.java
- * Author: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
- * Date: ${DATE}
+ * 相关文件如下：
+ *      Entity: ${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}.java
+ *      DAO: ${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao.java
+ *      Mapper: ${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao.xml([resources/])
+ *      Service: ${PACKAGE_NAME_SERVICE}.${ENTITY_NAME}Service.java
+ *      Controller: ${PACKAGE_NAME_CONTROLLER}.${ENTITY_NAME}Controller.java
+ *
+ * 作者: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
+ * 日期: ${DATE}
  */
 
-package ${PACKAGE_NAME}${MODULE_NAME_PKG}.service;
+package ${PACKAGE_NAME_SERVICE};
 
 import cn.eppdev.commons.service.BasicService;
 import org.slf4j.Logger;
@@ -17,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME};
+import ${PACKAGE_NAME_ENTITY}.${ENTITY_NAME};
 
 /**
  * @author: ${AUTHOR_NAME}
@@ -34,6 +36,7 @@ public class ${ENTITY_NAME}Service extends BasicService<${ENTITY_NAME}> {
         @Override
         public boolean exists(${ENTITY_NAME} entity) {
             return false;
+            // TODO
         }
 
         /**
@@ -42,6 +45,6 @@ public class ${ENTITY_NAME}Service extends BasicService<${ENTITY_NAME}> {
          */
         @Override
         public void customeInit(${ENTITY_NAME} entity) {
-
+            // TODO
         }
 }

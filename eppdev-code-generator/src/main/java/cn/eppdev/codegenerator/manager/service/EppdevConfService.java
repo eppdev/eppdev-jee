@@ -36,12 +36,11 @@ public class EppdevConfService extends BasicService<EppdevConf> {
         for(EppdevConf conf: confList){
             result.put(conf.getConfName(), conf.getConfValue());
         }
-        result.put("PACKAGE_NAME_DIR", result.get("PACKAGE_NAME").replace('.', '/'));
         return result;
     }
 
     public String getBasicPackageName(){
-        return getBasicMap().get("PACKAGE_NAME");
+        return getBasicMap().get("BASIC_PACKAGE_NAME");
     }
 
     public String getWorkSpaceDir(){

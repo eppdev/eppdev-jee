@@ -144,6 +144,24 @@ public class LineTemplate {
 	}
 
 	/**
+	 * 在某行后所有内容删除
+	 *
+	 * @param str
+	 * @return
+	 */
+	public LineTemplate delAfter(String str) {
+		List<String> newList = new ArrayList<String>();
+		for (String line : lineList) {
+			newList.add(line);
+			if (line.contains(str)) {
+				break;
+			}
+		}
+		this.lineList = newList;
+		return this;
+	}
+
+	/**
 	 * 将strStart和strEnd中间的内容替换表
 	 * 
 	 * @param strStart

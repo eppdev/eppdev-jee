@@ -1,0 +1,7 @@
+        select
+        count(1)
+        from ${TABLE_NAME} a
+        <where>
+${WHERE_BY}
+            and a.del_flag = 0
+        </where>

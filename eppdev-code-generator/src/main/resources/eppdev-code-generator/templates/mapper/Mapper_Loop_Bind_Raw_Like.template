@@ -1,0 +1,3 @@
+        <if test="${PROPERTY_NAME} != null and ${PROPERTY_NAME} !=''">
+            <bind name="_bind_${COLUMN_NAME}" value="${PROPERTY_NAME}"></bind>
+        </if>

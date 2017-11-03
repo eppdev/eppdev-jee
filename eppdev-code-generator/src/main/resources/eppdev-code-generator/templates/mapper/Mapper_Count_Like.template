@@ -1,0 +1,8 @@
+${BIND_LIKE}
+        select
+        count(1)
+        from ${TABLE_NAME} a
+        <where>
+            and a.del_flag = 0
+${WHERE_LIKE}
+        </where>

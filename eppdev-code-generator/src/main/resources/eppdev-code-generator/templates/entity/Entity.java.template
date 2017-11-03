@@ -1,23 +1,27 @@
 /*
  * #${ENTITY_NAME}.java -- ${TABLE_NAME} 对应的映射类，自定义的附加属性请在此增加
- * Entity: ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.${ENTITY_NAME}.java
- * DAO: ${PACKAGE_NAME}${MODULE_NAME_PKG}.dao.${ENTITY_NAME}Dao.java
- * Mapper: [resources/]${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Dao.xml
- * Service: ${PACKAGE_NAME}${MODULE_NAME_PKG}.service.${ENTITY_NAME}Service.java
- * Controller: ${PACKAGE_NAME}${MODULE_NAME_PKG}.web.${ENTITY_NAME}Controller.java
- * Author: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
- * Date: ${DATE}
+ * 相关文件如下：
+ *      Entity: ${PACKAGE_NAME_ENTITY}.${ENTITY_NAME}.java
+ *      DAO: ${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao.java
+ *      Mapper: ${PACKAGE_NAME_DAO}.${ENTITY_NAME}Dao.xml([resources/])
+ *      Service: ${PACKAGE_NAME_SERVICE}.${ENTITY_NAME}Service.java
+ *      Controller: ${PACKAGE_NAME_CONTROLLER}.${ENTITY_NAME}Controller.java
+ *
+ * 作者: ${AUTHOR_NAME}-(${AUTHOR_EMAIL})
+ * 日期: ${DATE}
  */
 
-package ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity;
+package ${PACKAGE_NAME_ENTITY};
 
-import ${PACKAGE_NAME}${MODULE_NAME_PKG}.entity.auto._${ENTITY_NAME};
+import ${PACKAGE_NAME_ENTITY}.auto._${ENTITY_NAME};
 import cn.eppdev.utils.json.JSONUtils;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * ${TABLE_NAME} 对应的实体类
  * @author ${AUTHOR_NAME}
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ${ENTITY_NAME} extends _${ENTITY_NAME} {
 
     @Override

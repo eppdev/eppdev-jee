@@ -1,0 +1,10 @@
+        insert into ${TABLE_NAME}(
+            <trim prefix="" suffixOverrides="," suffix="">
+${INSERT_COLUMNS}
+            </trim>
+        )
+        values(
+            <trim prefix="" suffixOverrides="," suffix="">
+${INSERT_PROPERTIES}
+            </trim>
+        )

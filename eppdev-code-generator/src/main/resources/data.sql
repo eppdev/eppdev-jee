@@ -8,7 +8,7 @@ insert into _eppdev_version(id, version_name, remark, create_time, update_time, 
   values('00000000000000000000000000000000', 'master', '主分支', now(), now(), 0);
 
 insert into _eppdev_conf(id, conf_name, conf_value, remark, create_time, update_time, del_flag)
-  values('0c827bc2b87343c3a09046862b5ff565', 'PACKAGE_NAME', 'cn.eppdev.test', '包名', now(), now(), 0);
+  values('0c827bc2b87343c3a09046862b5ff565', 'BASIC_PACKAGE_NAME', 'cn.eppdev.test', '包名', now(), now(), 0);
 
 insert into _eppdev_conf(id, conf_name, conf_value, remark, create_time, update_time, del_flag)
   values('37a102229071496eb83398e79f9acb83', 'WORK_SPACE_DIR', '/home/fan.hao', '开发工作目录地址', now(), now(), 0);

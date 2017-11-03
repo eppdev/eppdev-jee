@@ -1,0 +1,12 @@
+    public void set${PROPERTY_NAME_UP}(${JAVA_TYPE} ${PROPERTY_NAME}) {
+        this.${PROPERTY_NAME} =  ${PROPERTY_NAME};
+    }
+
+    public void set_max${PROPERTY_NAME_UP}(${JAVA_TYPE} _max${PROPERTY_NAME_UP}) {
+        this._max${PROPERTY_NAME_UP} =  _max${PROPERTY_NAME_UP};
+    }
+
+    public void set_min${PROPERTY_NAME_UP}(${JAVA_TYPE} _min${PROPERTY_NAME_UP}) {
+        this._min${PROPERTY_NAME_UP} =  _min${PROPERTY_NAME_UP};
+    }
+
