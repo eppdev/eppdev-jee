@@ -184,6 +184,8 @@ public class SchemaService {
             logger.debug("columnListOrigin: {}", columnListOrigin);
             List<EppdevColumn> columnListNew = table.getColumnList();
             logger.debug("columnListNew: {}", columnListNew);
+
+            // 物理库表中列信息与_eppdev_column表中的数据进行对比
             for (EppdevColumn column : columnListNew) {
                 logger.debug("column: {}", column);
                 boolean exists = false;
@@ -220,6 +222,23 @@ public class SchemaService {
                 }
 
             }
+
+
+            // _eppdev_column表中的数据与物理库表信息进行对比
+            for (EppdevColumn column : columnListOrigin) {
+                boolean exists = false;
+                for (EppdevColumn  newColumn: columnListNew) {
+                    if (column.getColumnName().equals(newColumn.getColumnName())) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists){
+                    columnService.delete(column.getId());
+                }
+            }
+
+
 
             // 处理索引信息
             for(EppdevIndex idx : table.getIndexList()){

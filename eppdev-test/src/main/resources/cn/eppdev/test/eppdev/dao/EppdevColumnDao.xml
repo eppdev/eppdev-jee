@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.eppdev.test.eppdev.dao.EppdevColumnDao">
+
+    <sql id="columns">
+        a.id as "id",
+        a.java_type as "javaType",
+        a.sort_index as "sortIndex",
+        a.column_name as "columnName",
+        a.origin_column_id as "originColumnId",
+        a.table_id as "tableId",
+        a.column_type as "columnType",
+        a.property_name as "propertyName",
+        a.column_comment as "columnComment",
+        a.primary_key as "primaryKey",
+        a.column_length as "columnLength",
+        a.remark as "remark",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.del_flag as "delFlag",
+
+    </sql>
+
+    <sql id="customColumns">
+    </sql>
+
+    <sql id="customJoins">
+    </sql>
+
+    <insert id="insert" parameterType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        insert into _eppdev_column(
+            <trim prefix="" suffixOverrides="," suffix="">
+            id,
+            java_type,
+            sort_index,
+            column_name,
+            origin_column_id,
+            table_id,
+            column_type,
+            property_name,
+            column_comment,
+            primary_key,
+            column_length,
+            remark,
+            create_time,
+            update_time,
+            del_flag,
+
+            </trim>
+        )
+        values(
+            <trim prefix="" suffixOverrides="," suffix="">
+            #{id},
+            #{javaType},
+            #{sortIndex},
+            #{columnName},
+            #{originColumnId},
+            #{tableId},
+            #{columnType},
+            #{propertyName},
+            #{columnComment},
+            #{primaryKey},
+            #{columnLength},
+            #{remark},
+            #{createTime},
+            #{updateTime},
+            #{delFlag},
+
+            </trim>
+        )
+    </insert>
+
+    <delete id="delete">
+        update _eppdev_column set del_flag=1
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <delete id="realDelete">
+        delete _eppdev_column
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        update _eppdev_column
+        <set>
+            <if test="id !=null">
+                id=#{id},
+            </if>
+            <if test="javaType !=null">
+                java_type=#{javaType},
+            </if>
+            <if test="sortIndex !=null">
+                sort_index=#{sortIndex},
+            </if>
+            <if test="columnName !=null">
+                column_name=#{columnName},
+            </if>
+            <if test="originColumnId !=null">
+                origin_column_id=#{originColumnId},
+            </if>
+            <if test="tableId !=null">
+                table_id=#{tableId},
+            </if>
+            <if test="columnType !=null">
+                column_type=#{columnType},
+            </if>
+            <if test="propertyName !=null">
+                property_name=#{propertyName},
+            </if>
+            <if test="columnComment !=null">
+                column_comment=#{columnComment},
+            </if>
+            <if test="primaryKey !=null">
+                primary_key=#{primaryKey},
+            </if>
+            <if test="columnLength !=null">
+                column_length=#{columnLength},
+            </if>
+            <if test="remark !=null">
+                remark=#{remark},
+            </if>
+            <if test="createTime !=null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime !=null">
+                update_time=#{updateTime},
+            </if>
+            <if test="delFlag !=null">
+                del_flag=#{delFlag},
+            </if>
+
+        </set>
+        <where>
+            and id=#{id}
+        </where>
+
+    </update>
+
+    <select id="get" resultType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and a.id=#{id}
+        </where>
+    </select>
+
+    <select id="listAll" resultType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag =0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            <if test="javaType !=null">
+                and a.java_type = #{javaType}
+            </if>
+            <if test="sortIndex !=null">
+                and a.sort_index = #{sortIndex}
+            </if>
+            <if test="_minSortIndex !=null">
+                and a.sort_index &gt;= #{_minSortIndex}
+            </if>
+            <if test="_maxSortIndex !=null">
+                and a.sort_index &lt;= #{_maxSortIndex}
+            </if>
+            <if test="columnName !=null">
+                and a.column_name = #{columnName}
+            </if>
+            <if test="originColumnId !=null">
+                and a.origin_column_id = #{originColumnId}
+            </if>
+            <if test="tableId !=null">
+                and a.table_id = #{tableId}
+            </if>
+            <if test="columnType !=null">
+                and a.column_type = #{columnType}
+            </if>
+            <if test="propertyName !=null">
+                and a.property_name = #{propertyName}
+            </if>
+            <if test="columnComment !=null">
+                and a.column_comment = #{columnComment}
+            </if>
+            <if test="primaryKey !=null">
+                and a.primary_key = #{primaryKey}
+            </if>
+            <if test="columnLength !=null">
+                and a.column_length = #{columnLength}
+            </if>
+            <if test="_minColumnLength !=null">
+                and a.column_length &gt;= #{_minColumnLength}
+            </if>
+            <if test="_maxColumnLength !=null">
+                and a.column_length &lt;= #{_maxColumnLength}
+            </if>
+            <if test="remark !=null">
+                and a.remark = #{remark}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+            and a.del_flag = 0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="listLike" resultType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        <if test="javaType != null and javaType !=''">
+            <bind name="_bind_java_type" value="'%' + javaType + '%'"></bind>
+        </if>
+        <if test="columnName != null and columnName !=''">
+            <bind name="_bind_column_name" value="'%' + columnName + '%'"></bind>
+        </if>
+        <if test="originColumnId != null and originColumnId !=''">
+            <bind name="_bind_origin_column_id" value="'%' + originColumnId + '%'"></bind>
+        </if>
+        <if test="tableId != null and tableId !=''">
+            <bind name="_bind_table_id" value="'%' + tableId + '%'"></bind>
+        </if>
+        <if test="columnType != null and columnType !=''">
+            <bind name="_bind_column_type" value="'%' + columnType + '%'"></bind>
+        </if>
+        <if test="propertyName != null and propertyName !=''">
+            <bind name="_bind_property_name" value="'%' + propertyName + '%'"></bind>
+        </if>
+        <if test="columnComment != null and columnComment !=''">
+            <bind name="_bind_column_comment" value="'%' + columnComment + '%'"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="'%' + remark + '%'"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="javaType !=null and javaType !=''">
+                and a.java_type like #{_bind_java_type}
+            </if>
+            <if test="sortIndex !=null">
+                and a.sort_index = #{sortIndex}
+            </if>
+            <if test="_minSortIndex !=null">
+                and a.sort_index &gt;= #{_minSortIndex}
+            </if>
+            <if test="_maxSortIndex !=null">
+                and a.sort_index &lt;= #{_maxSortIndex}
+            </if>
+           <if test="columnName !=null and columnName !=''">
+                and a.column_name like #{_bind_column_name}
+            </if>
+           <if test="originColumnId !=null and originColumnId !=''">
+                and a.origin_column_id like #{_bind_origin_column_id}
+            </if>
+           <if test="tableId !=null and tableId !=''">
+                and a.table_id like #{_bind_table_id}
+            </if>
+           <if test="columnType !=null and columnType !=''">
+                and a.column_type like #{_bind_column_type}
+            </if>
+           <if test="propertyName !=null and propertyName !=''">
+                and a.property_name like #{_bind_property_name}
+            </if>
+           <if test="columnComment !=null and columnComment !=''">
+                and a.column_comment like #{_bind_column_comment}
+            </if>
+            <if test="primaryKey !=null">
+                and a.primary_key = #{primaryKey}
+            </if>
+            <if test="columnLength !=null">
+                and a.column_length = #{columnLength}
+            </if>
+            <if test="_minColumnLength !=null">
+                and a.column_length &gt;= #{_minColumnLength}
+            </if>
+            <if test="_maxColumnLength !=null">
+                and a.column_length &lt;= #{_maxColumnLength}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="listLeftLike" resultType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        <if test="javaType != null and javaType !=''">
+            <bind name="_bind_java_type" value="javaType + '%'"></bind>
+        </if>
+        <if test="columnName != null and columnName !=''">
+            <bind name="_bind_column_name" value="columnName + '%'"></bind>
+        </if>
+        <if test="originColumnId != null and originColumnId !=''">
+            <bind name="_bind_origin_column_id" value="originColumnId + '%'"></bind>
+        </if>
+        <if test="tableId != null and tableId !=''">
+            <bind name="_bind_table_id" value="tableId + '%'"></bind>
+        </if>
+        <if test="columnType != null and columnType !=''">
+            <bind name="_bind_column_type" value="columnType + '%'"></bind>
+        </if>
+        <if test="propertyName != null and propertyName !=''">
+            <bind name="_bind_property_name" value="propertyName + '%'"></bind>
+        </if>
+        <if test="columnComment != null and columnComment !=''">
+            <bind name="_bind_column_comment" value="columnComment + '%'"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark + '%'"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="javaType !=null and javaType !=''">
+                and a.java_type like #{_bind_java_type}
+            </if>
+            <if test="sortIndex !=null">
+                and a.sort_index = #{sortIndex}
+            </if>
+            <if test="_minSortIndex !=null">
+                and a.sort_index &gt;= #{_minSortIndex}
+            </if>
+            <if test="_maxSortIndex !=null">
+                and a.sort_index &lt;= #{_maxSortIndex}
+            </if>
+           <if test="columnName !=null and columnName !=''">
+                and a.column_name like #{_bind_column_name}
+            </if>
+           <if test="originColumnId !=null and originColumnId !=''">
+                and a.origin_column_id like #{_bind_origin_column_id}
+            </if>
+           <if test="tableId !=null and tableId !=''">
+                and a.table_id like #{_bind_table_id}
+            </if>
+           <if test="columnType !=null and columnType !=''">
+                and a.column_type like #{_bind_column_type}
+            </if>
+           <if test="propertyName !=null and propertyName !=''">
+                and a.property_name like #{_bind_property_name}
+            </if>
+           <if test="columnComment !=null and columnComment !=''">
+                and a.column_comment like #{_bind_column_comment}
+            </if>
+            <if test="primaryKey !=null">
+                and a.primary_key = #{primaryKey}
+            </if>
+            <if test="columnLength !=null">
+                and a.column_length = #{columnLength}
+            </if>
+            <if test="_minColumnLength !=null">
+                and a.column_length &gt;= #{_minColumnLength}
+            </if>
+            <if test="_maxColumnLength !=null">
+                and a.column_length &lt;= #{_maxColumnLength}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+
+    <select id="listRawLike" resultType="cn.eppdev.test.eppdev.entity.EppdevColumn">
+        <if test="javaType != null and javaType !=''">
+            <bind name="_bind_java_type" value="javaType"></bind>
+        </if>
+        <if test="columnName != null and columnName !=''">
+            <bind name="_bind_column_name" value="columnName"></bind>
+        </if>
+        <if test="originColumnId != null and originColumnId !=''">
+            <bind name="_bind_origin_column_id" value="originColumnId"></bind>
+        </if>
+        <if test="tableId != null and tableId !=''">
+            <bind name="_bind_table_id" value="tableId"></bind>
+        </if>
+        <if test="columnType != null and columnType !=''">
+            <bind name="_bind_column_type" value="columnType"></bind>
+        </if>
+        <if test="propertyName != null and propertyName !=''">
+            <bind name="_bind_property_name" value="propertyName"></bind>
+        </if>
+        <if test="columnComment != null and columnComment !=''">
+            <bind name="_bind_column_comment" value="columnComment"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_column a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="javaType !=null and javaType !=''">
+                and a.java_type like #{_bind_java_type}
+            </if>
+            <if test="sortIndex !=null">
+                and a.sort_index = #{sortIndex}
+            </if>
+            <if test="_minSortIndex !=null">
+                and a.sort_index &gt;= #{_minSortIndex}
+            </if>
+            <if test="_maxSortIndex !=null">
+                and a.sort_index &lt;= #{_maxSortIndex}
+            </if>
+           <if test="columnName !=null and columnName !=''">
+                and a.column_name like #{_bind_column_name}
+            </if>
+           <if test="originColumnId !=null and originColumnId !=''">
+                and a.origin_column_id like #{_bind_origin_column_id}
+            </if>
+           <if test="tableId !=null and tableId !=''">
+                and a.table_id like #{_bind_table_id}
+            </if>
+           <if test="columnType !=null and columnType !=''">
+                and a.column_type like #{_bind_column_type}
+            </if>
+           <if test="propertyName !=null and propertyName !=''">
+                and a.property_name like #{_bind_property_name}
+            </if>
+           <if test="columnComment !=null and columnComment !=''">
+                and a.column_comment like #{_bind_column_comment}
+            </if>
+            <if test="primaryKey !=null">
+                and a.primary_key = #{primaryKey}
+            </if>
+            <if test="columnLength !=null">
+                and a.column_length = #{columnLength}
+            </if>
+            <if test="_minColumnLength !=null">
+                and a.column_length &gt;= #{_minColumnLength}
+            </if>
+            <if test="_maxColumnLength !=null">
+                and a.column_length &lt;= #{_maxColumnLength}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="countAll">
+        select
+        count(1)
+        from test_entity a
+        <where>
+            and a.del_flag =0
+        </where>
+    </select>
+
+
+    <select id="countBy">
+        select
+        count(1)
+        from _eppdev_column a
+        <where>
+            <if test="javaType !=null">
+                and a.java_type = #{javaType}
+            </if>
+            <if test="sortIndex !=null">
+                and a.sort_index = #{sortIndex}
+            </if>
+            <if test="_minSortIndex !=null">
+                and a.sort_index &gt;= #{_minSortIndex}
+            </if>
+            <if test="_maxSortIndex !=null">
+                and a.sort_index &lt;= #{_maxSortIndex}
+            </if>
+            <if test="columnName !=null">
+                and a.column_name = #{columnName}
+            </if>
+            <if test="originColumnId !=null">
+                and a.origin_column_id = #{originColumnId}
+            </if>
+            <if test="tableId !=null">
+                and a.table_id = #{tableId}
+            </if>
+            <if test="columnType !=null">
+                and a.column_type = #{columnType}
+            </if>
+            <if test="propertyName !=null">
+                and a.property_name = #{propertyName}
+            </if>
+            <if test="columnComment !=null">
+                and a.column_comment = #{columnComment}
+            </if>
+            <if test="primaryKey !=null">
+                and a.primary_key = #{primaryKey}
+            </if>
+            <if test="columnLength !=null">
+                and a.column_length = #{columnLength}
+            </if>
+            <if test="_minColumnLength !=null">
+                and a.column_length &gt;= #{_minColumnLength}
+            </if>
+            <if test="_maxColumnLength !=null">
+                and a.column_length &lt;= #{_maxColumnLength}
+            </if>
+            <if test="remark !=null">
+                and a.remark = #{remark}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+            and a.del_flag = 0
+        </where>
+
+    </select>
+
+
+    <select id="countLike">
+        <if test="javaType != null and javaType !=''">
+            <bind name="_bind_java_type" value="javaType + '%'"></bind>
+        </if>
+        <if test="columnName != null and columnName !=''">
+            <bind name="_bind_column_name" value="columnName + '%'"></bind>
+        </if>
+        <if test="originColumnId != null and originColumnId !=''">
+            <bind name="_bind_origin_column_id" value="originColumnId + '%'"></bind>
+        </if>
+        <if test="tableId != null and tableId !=''">
+            <bind name="_bind_table_id" value="tableId + '%'"></bind>
+        </if>
+        <if test="columnType != null and columnType !=''">
+            <bind name="_bind_column_type" value="columnType + '%'"></bind>
+        </if>
+        <if test="propertyName != null and propertyName !=''">
+            <bind name="_bind_property_name" value="propertyName + '%'"></bind>
+        </if>
+        <if test="columnComment != null and columnComment !=''">
+            <bind name="_bind_column_comment" value="columnComment + '%'"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark + '%'"></bind>
+        </if>
+
+        select
+        count(1)
+        from _eppdev_column a
+        <where>
+            and a.del_flag = 0
+           <if test="javaType !=null and javaType !=''">
+                and a.java_type like #{_bind_java_type}
+            </if>
+            <if test="sortIndex !=null">
+                and a.sort_index = #{sortIndex}
+            </if>
+            <if test="_minSortIndex !=null">
+                and a.sort_index &gt;= #{_minSortIndex}
+            </if>
+            <if test="_maxSortIndex !=null">
+                and a.sort_index &lt;= #{_maxSortIndex}
+            </if>
+           <if test="columnName !=null and columnName !=''">
+                and a.column_name like #{_bind_column_name}
+            </if>
+           <if test="originColumnId !=null and originColumnId !=''">
+                and a.origin_column_id like #{_bind_origin_column_id}
+            </if>
+           <if test="tableId !=null and tableId !=''">
+                and a.table_id like #{_bind_table_id}
+            </if>
+           <if test="columnType !=null and columnType !=''">
+                and a.column_type like #{_bind_column_type}
+            </if>
+           <if test="propertyName !=null and propertyName !=''">
+                and a.property_name like #{_bind_property_name}
+            </if>
+           <if test="columnComment !=null and columnComment !=''">
+                and a.column_comment like #{_bind_column_comment}
+            </if>
+            <if test="primaryKey !=null">
+                and a.primary_key = #{primaryKey}
+            </if>
+            <if test="columnLength !=null">
+                and a.column_length = #{columnLength}
+            </if>
+            <if test="_minColumnLength !=null">
+                and a.column_length &gt;= #{_minColumnLength}
+            </if>
+            <if test="_maxColumnLength !=null">
+                and a.column_length &lt;= #{_maxColumnLength}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.eppdev.test.eppdev.dao.EppdevVersionDao">
+
+    <sql id="columns">
+        a.id as "id",
+        a.remark as "remark",
+        a.version_name as "versionName",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.del_flag as "delFlag",
+
+    </sql>
+
+    <sql id="customColumns">
+    </sql>
+
+    <sql id="customJoins">
+    </sql>
+
+    <insert id="insert" parameterType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        insert into _eppdev_version(
+            <trim prefix="" suffixOverrides="," suffix="">
+            id,
+            remark,
+            version_name,
+            create_time,
+            update_time,
+            del_flag,
+
+            </trim>
+        )
+        values(
+            <trim prefix="" suffixOverrides="," suffix="">
+            #{id},
+            #{remark},
+            #{versionName},
+            #{createTime},
+            #{updateTime},
+            #{delFlag},
+
+            </trim>
+        )
+    </insert>
+
+    <delete id="delete">
+        update _eppdev_version set del_flag=1
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <delete id="realDelete">
+        delete _eppdev_version
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        update _eppdev_version
+        <set>
+            <if test="id !=null">
+                id=#{id},
+            </if>
+            <if test="remark !=null">
+                remark=#{remark},
+            </if>
+            <if test="versionName !=null">
+                version_name=#{versionName},
+            </if>
+            <if test="createTime !=null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime !=null">
+                update_time=#{updateTime},
+            </if>
+            <if test="delFlag !=null">
+                del_flag=#{delFlag},
+            </if>
+
+        </set>
+        <where>
+            and id=#{id}
+        </where>
+
+    </update>
+
+    <select id="get" resultType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_version a
+        <include refid="customJoins"/>
+        <where>
+            and a.id=#{id}
+        </where>
+    </select>
+
+    <select id="listAll" resultType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_version a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag =0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_version a
+        <include refid="customJoins"/>
+        <where>
+            <if test="remark !=null">
+                and a.remark = #{remark}
+            </if>
+            <if test="versionName !=null">
+                and a.version_name = #{versionName}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+            and a.del_flag = 0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="listLike" resultType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="'%' + remark + '%'"></bind>
+        </if>
+        <if test="versionName != null and versionName !=''">
+            <bind name="_bind_version_name" value="'%' + versionName + '%'"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_version a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+           <if test="versionName !=null and versionName !=''">
+                and a.version_name like #{_bind_version_name}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="listLeftLike" resultType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark + '%'"></bind>
+        </if>
+        <if test="versionName != null and versionName !=''">
+            <bind name="_bind_version_name" value="versionName + '%'"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_version a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+           <if test="versionName !=null and versionName !=''">
+                and a.version_name like #{_bind_version_name}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+
+    <select id="listRawLike" resultType="cn.eppdev.test.eppdev.entity.EppdevVersion">
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark"></bind>
+        </if>
+        <if test="versionName != null and versionName !=''">
+            <bind name="_bind_version_name" value="versionName"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_version a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+           <if test="versionName !=null and versionName !=''">
+                and a.version_name like #{_bind_version_name}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="countAll">
+        select
+        count(1)
+        from test_entity a
+        <where>
+            and a.del_flag =0
+        </where>
+    </select>
+
+
+    <select id="countBy">
+        select
+        count(1)
+        from _eppdev_version a
+        <where>
+            <if test="remark !=null">
+                and a.remark = #{remark}
+            </if>
+            <if test="versionName !=null">
+                and a.version_name = #{versionName}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+            and a.del_flag = 0
+        </where>
+
+    </select>
+
+
+    <select id="countLike">
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark + '%'"></bind>
+        </if>
+        <if test="versionName != null and versionName !=''">
+            <bind name="_bind_version_name" value="versionName + '%'"></bind>
+        </if>
+
+        select
+        count(1)
+        from _eppdev_version a
+        <where>
+            and a.del_flag = 0
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+           <if test="versionName !=null and versionName !=''">
+                and a.version_name like #{_bind_version_name}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>

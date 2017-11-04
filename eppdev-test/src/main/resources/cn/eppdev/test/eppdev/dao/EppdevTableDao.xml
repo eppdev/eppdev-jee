@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.eppdev.test.eppdev.dao.EppdevTableDao">
+
+    <sql id="columns">
+        a.id as "id",
+        a.entity_name as "entityName",
+        a.module_name as "moduleName",
+        a.create_sql as "createSql",
+        a.origin_table_id as "originTableId",
+        a.table_name as "tableName",
+        a.table_comment as "tableComment",
+        a.remark as "remark",
+        a.table_type as "tableType",
+        a.version_id as "versionId",
+        a.create_time as "createTime",
+        a.update_time as "updateTime",
+        a.del_flag as "delFlag",
+
+    </sql>
+
+    <sql id="customColumns">
+    </sql>
+
+    <sql id="customJoins">
+    </sql>
+
+    <insert id="insert" parameterType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        insert into _eppdev_table(
+            <trim prefix="" suffixOverrides="," suffix="">
+            id,
+            entity_name,
+            module_name,
+            create_sql,
+            origin_table_id,
+            table_name,
+            table_comment,
+            remark,
+            table_type,
+            version_id,
+            create_time,
+            update_time,
+            del_flag,
+
+            </trim>
+        )
+        values(
+            <trim prefix="" suffixOverrides="," suffix="">
+            #{id},
+            #{entityName},
+            #{moduleName},
+            #{createSql},
+            #{originTableId},
+            #{tableName},
+            #{tableComment},
+            #{remark},
+            #{tableType},
+            #{versionId},
+            #{createTime},
+            #{updateTime},
+            #{delFlag},
+
+            </trim>
+        )
+    </insert>
+
+    <delete id="delete">
+        update _eppdev_table set del_flag=1
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <delete id="realDelete">
+        delete _eppdev_table
+        <where>
+            and id=#{id}
+        </where>
+    </delete>
+
+    <update id="update" parameterType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        update _eppdev_table
+        <set>
+            <if test="id !=null">
+                id=#{id},
+            </if>
+            <if test="entityName !=null">
+                entity_name=#{entityName},
+            </if>
+            <if test="moduleName !=null">
+                module_name=#{moduleName},
+            </if>
+            <if test="createSql !=null">
+                create_sql=#{createSql},
+            </if>
+            <if test="originTableId !=null">
+                origin_table_id=#{originTableId},
+            </if>
+            <if test="tableName !=null">
+                table_name=#{tableName},
+            </if>
+            <if test="tableComment !=null">
+                table_comment=#{tableComment},
+            </if>
+            <if test="remark !=null">
+                remark=#{remark},
+            </if>
+            <if test="tableType !=null">
+                table_type=#{tableType},
+            </if>
+            <if test="versionId !=null">
+                version_id=#{versionId},
+            </if>
+            <if test="createTime !=null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime !=null">
+                update_time=#{updateTime},
+            </if>
+            <if test="delFlag !=null">
+                del_flag=#{delFlag},
+            </if>
+
+        </set>
+        <where>
+            and id=#{id}
+        </where>
+
+    </update>
+
+    <select id="get" resultType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.id=#{id}
+        </where>
+    </select>
+
+    <select id="listAll" resultType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag =0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="listBy" resultType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            <if test="entityName !=null">
+                and a.entity_name = #{entityName}
+            </if>
+            <if test="moduleName !=null">
+                and a.module_name = #{moduleName}
+            </if>
+            <if test="createSql !=null">
+                and a.create_sql = #{createSql}
+            </if>
+            <if test="originTableId !=null">
+                and a.origin_table_id = #{originTableId}
+            </if>
+            <if test="tableName !=null">
+                and a.table_name = #{tableName}
+            </if>
+            <if test="tableComment !=null">
+                and a.table_comment = #{tableComment}
+            </if>
+            <if test="remark !=null">
+                and a.remark = #{remark}
+            </if>
+            <if test="tableType !=null">
+                and a.table_type = #{tableType}
+            </if>
+            <if test="_minTableType !=null">
+                and a.table_type &gt;= #{_minTableType}
+            </if>
+            <if test="_maxTableType !=null">
+                and a.table_type &lt;= #{_maxTableType}
+            </if>
+            <if test="versionId !=null">
+                and a.version_id = #{versionId}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+            and a.del_flag = 0
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="listLike" resultType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        <if test="entityName != null and entityName !=''">
+            <bind name="_bind_entity_name" value="'%' + entityName + '%'"></bind>
+        </if>
+        <if test="moduleName != null and moduleName !=''">
+            <bind name="_bind_module_name" value="'%' + moduleName + '%'"></bind>
+        </if>
+        <if test="createSql != null and createSql !=''">
+            <bind name="_bind_create_sql" value="'%' + createSql + '%'"></bind>
+        </if>
+        <if test="originTableId != null and originTableId !=''">
+            <bind name="_bind_origin_table_id" value="'%' + originTableId + '%'"></bind>
+        </if>
+        <if test="tableName != null and tableName !=''">
+            <bind name="_bind_table_name" value="'%' + tableName + '%'"></bind>
+        </if>
+        <if test="tableComment != null and tableComment !=''">
+            <bind name="_bind_table_comment" value="'%' + tableComment + '%'"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="'%' + remark + '%'"></bind>
+        </if>
+        <if test="versionId != null and versionId !=''">
+            <bind name="_bind_version_id" value="'%' + versionId + '%'"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="entityName !=null and entityName !=''">
+                and a.entity_name like #{_bind_entity_name}
+            </if>
+           <if test="moduleName !=null and moduleName !=''">
+                and a.module_name like #{_bind_module_name}
+            </if>
+           <if test="createSql !=null and createSql !=''">
+                and a.create_sql like #{_bind_create_sql}
+            </if>
+           <if test="originTableId !=null and originTableId !=''">
+                and a.origin_table_id like #{_bind_origin_table_id}
+            </if>
+           <if test="tableName !=null and tableName !=''">
+                and a.table_name like #{_bind_table_name}
+            </if>
+           <if test="tableComment !=null and tableComment !=''">
+                and a.table_comment like #{_bind_table_comment}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="tableType !=null">
+                and a.table_type = #{tableType}
+            </if>
+            <if test="_minTableType !=null">
+                and a.table_type &gt;= #{_minTableType}
+            </if>
+            <if test="_maxTableType !=null">
+                and a.table_type &lt;= #{_maxTableType}
+            </if>
+           <if test="versionId !=null and versionId !=''">
+                and a.version_id like #{_bind_version_id}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="listLeftLike" resultType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        <if test="entityName != null and entityName !=''">
+            <bind name="_bind_entity_name" value="entityName + '%'"></bind>
+        </if>
+        <if test="moduleName != null and moduleName !=''">
+            <bind name="_bind_module_name" value="moduleName + '%'"></bind>
+        </if>
+        <if test="createSql != null and createSql !=''">
+            <bind name="_bind_create_sql" value="createSql + '%'"></bind>
+        </if>
+        <if test="originTableId != null and originTableId !=''">
+            <bind name="_bind_origin_table_id" value="originTableId + '%'"></bind>
+        </if>
+        <if test="tableName != null and tableName !=''">
+            <bind name="_bind_table_name" value="tableName + '%'"></bind>
+        </if>
+        <if test="tableComment != null and tableComment !=''">
+            <bind name="_bind_table_comment" value="tableComment + '%'"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark + '%'"></bind>
+        </if>
+        <if test="versionId != null and versionId !=''">
+            <bind name="_bind_version_id" value="versionId + '%'"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="entityName !=null and entityName !=''">
+                and a.entity_name like #{_bind_entity_name}
+            </if>
+           <if test="moduleName !=null and moduleName !=''">
+                and a.module_name like #{_bind_module_name}
+            </if>
+           <if test="createSql !=null and createSql !=''">
+                and a.create_sql like #{_bind_create_sql}
+            </if>
+           <if test="originTableId !=null and originTableId !=''">
+                and a.origin_table_id like #{_bind_origin_table_id}
+            </if>
+           <if test="tableName !=null and tableName !=''">
+                and a.table_name like #{_bind_table_name}
+            </if>
+           <if test="tableComment !=null and tableComment !=''">
+                and a.table_comment like #{_bind_table_comment}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="tableType !=null">
+                and a.table_type = #{tableType}
+            </if>
+            <if test="_minTableType !=null">
+                and a.table_type &gt;= #{_minTableType}
+            </if>
+            <if test="_maxTableType !=null">
+                and a.table_type &lt;= #{_maxTableType}
+            </if>
+           <if test="versionId !=null and versionId !=''">
+                and a.version_id like #{_bind_version_id}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+
+    <select id="listRawLike" resultType="cn.eppdev.test.eppdev.entity.EppdevTable">
+        <if test="entityName != null and entityName !=''">
+            <bind name="_bind_entity_name" value="entityName"></bind>
+        </if>
+        <if test="moduleName != null and moduleName !=''">
+            <bind name="_bind_module_name" value="moduleName"></bind>
+        </if>
+        <if test="createSql != null and createSql !=''">
+            <bind name="_bind_create_sql" value="createSql"></bind>
+        </if>
+        <if test="originTableId != null and originTableId !=''">
+            <bind name="_bind_origin_table_id" value="originTableId"></bind>
+        </if>
+        <if test="tableName != null and tableName !=''">
+            <bind name="_bind_table_name" value="tableName"></bind>
+        </if>
+        <if test="tableComment != null and tableComment !=''">
+            <bind name="_bind_table_comment" value="tableComment"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark"></bind>
+        </if>
+        <if test="versionId != null and versionId !=''">
+            <bind name="_bind_version_id" value="versionId"></bind>
+        </if>
+
+        select
+        <trim suffixOverrides=",">
+            <include refid="columns"/>
+            <include refid="customColumns"/>
+        </trim>
+        from _eppdev_table a
+        <include refid="customJoins"/>
+        <where>
+            and a.del_flag = 0
+           <if test="entityName !=null and entityName !=''">
+                and a.entity_name like #{_bind_entity_name}
+            </if>
+           <if test="moduleName !=null and moduleName !=''">
+                and a.module_name like #{_bind_module_name}
+            </if>
+           <if test="createSql !=null and createSql !=''">
+                and a.create_sql like #{_bind_create_sql}
+            </if>
+           <if test="originTableId !=null and originTableId !=''">
+                and a.origin_table_id like #{_bind_origin_table_id}
+            </if>
+           <if test="tableName !=null and tableName !=''">
+                and a.table_name like #{_bind_table_name}
+            </if>
+           <if test="tableComment !=null and tableComment !=''">
+                and a.table_comment like #{_bind_table_comment}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="tableType !=null">
+                and a.table_type = #{tableType}
+            </if>
+            <if test="_minTableType !=null">
+                and a.table_type &gt;= #{_minTableType}
+            </if>
+            <if test="_maxTableType !=null">
+                and a.table_type &lt;= #{_maxTableType}
+            </if>
+           <if test="versionId !=null and versionId !=''">
+                and a.version_id like #{_bind_version_id}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+        <choose>
+            <when test="_orderBy != null and _orderBy != ''">
+                order by ${_orderBy}
+            </when>
+            <otherwise>
+                order by a.update_time desc
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="countAll">
+        select
+        count(1)
+        from test_entity a
+        <where>
+            and a.del_flag =0
+        </where>
+    </select>
+
+
+    <select id="countBy">
+        select
+        count(1)
+        from _eppdev_table a
+        <where>
+            <if test="entityName !=null">
+                and a.entity_name = #{entityName}
+            </if>
+            <if test="moduleName !=null">
+                and a.module_name = #{moduleName}
+            </if>
+            <if test="createSql !=null">
+                and a.create_sql = #{createSql}
+            </if>
+            <if test="originTableId !=null">
+                and a.origin_table_id = #{originTableId}
+            </if>
+            <if test="tableName !=null">
+                and a.table_name = #{tableName}
+            </if>
+            <if test="tableComment !=null">
+                and a.table_comment = #{tableComment}
+            </if>
+            <if test="remark !=null">
+                and a.remark = #{remark}
+            </if>
+            <if test="tableType !=null">
+                and a.table_type = #{tableType}
+            </if>
+            <if test="_minTableType !=null">
+                and a.table_type &gt;= #{_minTableType}
+            </if>
+            <if test="_maxTableType !=null">
+                and a.table_type &lt;= #{_maxTableType}
+            </if>
+            <if test="versionId !=null">
+                and a.version_id = #{versionId}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+            and a.del_flag = 0
+        </where>
+
+    </select>
+
+
+    <select id="countLike">
+        <if test="entityName != null and entityName !=''">
+            <bind name="_bind_entity_name" value="entityName + '%'"></bind>
+        </if>
+        <if test="moduleName != null and moduleName !=''">
+            <bind name="_bind_module_name" value="moduleName + '%'"></bind>
+        </if>
+        <if test="createSql != null and createSql !=''">
+            <bind name="_bind_create_sql" value="createSql + '%'"></bind>
+        </if>
+        <if test="originTableId != null and originTableId !=''">
+            <bind name="_bind_origin_table_id" value="originTableId + '%'"></bind>
+        </if>
+        <if test="tableName != null and tableName !=''">
+            <bind name="_bind_table_name" value="tableName + '%'"></bind>
+        </if>
+        <if test="tableComment != null and tableComment !=''">
+            <bind name="_bind_table_comment" value="tableComment + '%'"></bind>
+        </if>
+        <if test="remark != null and remark !=''">
+            <bind name="_bind_remark" value="remark + '%'"></bind>
+        </if>
+        <if test="versionId != null and versionId !=''">
+            <bind name="_bind_version_id" value="versionId + '%'"></bind>
+        </if>
+
+        select
+        count(1)
+        from _eppdev_table a
+        <where>
+            and a.del_flag = 0
+           <if test="entityName !=null and entityName !=''">
+                and a.entity_name like #{_bind_entity_name}
+            </if>
+           <if test="moduleName !=null and moduleName !=''">
+                and a.module_name like #{_bind_module_name}
+            </if>
+           <if test="createSql !=null and createSql !=''">
+                and a.create_sql like #{_bind_create_sql}
+            </if>
+           <if test="originTableId !=null and originTableId !=''">
+                and a.origin_table_id like #{_bind_origin_table_id}
+            </if>
+           <if test="tableName !=null and tableName !=''">
+                and a.table_name like #{_bind_table_name}
+            </if>
+           <if test="tableComment !=null and tableComment !=''">
+                and a.table_comment like #{_bind_table_comment}
+            </if>
+           <if test="remark !=null and remark !=''">
+                and a.remark like #{_bind_remark}
+            </if>
+            <if test="tableType !=null">
+                and a.table_type = #{tableType}
+            </if>
+            <if test="_minTableType !=null">
+                and a.table_type &gt;= #{_minTableType}
+            </if>
+            <if test="_maxTableType !=null">
+                and a.table_type &lt;= #{_maxTableType}
+            </if>
+           <if test="versionId !=null and versionId !=''">
+                and a.version_id like #{_bind_version_id}
+            </if>
+            <if test="createTime !=null">
+                and a.create_time = #{createTime}
+            </if>
+            <if test="_minCreateTime !=null">
+                and a.create_time &gt;= #{_minCreateTime}
+            </if>
+            <if test="_maxCreateTime !=null">
+                and a.create_time &lt;= #{_maxCreateTime}
+            </if>
+            <if test="updateTime !=null">
+                and a.update_time = #{updateTime}
+            </if>
+            <if test="_minUpdateTime !=null">
+                and a.update_time &gt;= #{_minUpdateTime}
+            </if>
+            <if test="_maxUpdateTime !=null">
+                and a.update_time &lt;= #{_maxUpdateTime}
+            </if>
+            <if test="delFlag !=null">
+                and a.del_flag = #{delFlag}
+            </if>
+            <if test="_minDelFlag !=null">
+                and a.del_flag &gt;= #{_minDelFlag}
+            </if>
+            <if test="_maxDelFlag !=null">
+                and a.del_flag &lt;= #{_maxDelFlag}
+            </if>
+
+        </where>
+
+    </select>
+
+</mapper>
