@@ -1,5 +1,8 @@
-# 代码组织结构
-## eppdev-utils
+# 说明
+## 平台说明
+
+## 代码组织结构
+### eppdev-utils
 
 项目一些通用的工具类，包括：
 
@@ -8,7 +11,7 @@
 * UUIDUtils: 用于生成UUID，主要是去除Java自动生成的UUID中的“-”
 * TextFileUtils: 文本文件操作的工具类，包括文本读取、文本写入等
 
-## eppdev-commons
+### eppdev-commons
 
 项目的公共类，包括：
 * BasicDao: DAO文件的基础方法，包含了以下基础方法：
